@@ -807,7 +807,8 @@
     <div class="window-content" style="padding: 0; display: flex; flex-direction: column; background-color: #f0f0f0; height: 100%; overflow: hidden;">
         <!-- Windows 98 style phone dialer header -->
         <div style="background: linear-gradient(to right, #000080, #1084d0); padding: 8px 15px; display: flex; align-items: center;">
-            <img src="/api/placeholder/24/24" alt="Phone Icon" style="margin-right: 10px;">
+            <img src="https://cdn.prod.website-files.com/6740d85c4e3daeef29a89470/682661a7e0be9e75079471f8_52345234321432.png" 
+                 alt="Phone Icon" style="margin-right: 10px; width: 24px; height: 24px;">
             <div style="color: white; font-weight: bold; font-size: 16px;">Weiner Perkins Phone Dialer</div>
         </div>
         
@@ -837,7 +838,8 @@
                 <div style="font-weight: bold; margin-bottom: 10px;">The fastest way to reach us:</div>
                 <a href="https://twitter.com/weinerperkins" target="_blank" style="text-decoration: none;">
                     <button class="win98-button" style="padding: 8px 15px; display: flex; align-items: center; margin: 0 auto;">
-                        <img src="/api/placeholder/16/16" alt="Twitter" style="margin-right: 8px;"> 
+                        <img src="https://cdn.prod.website-files.com/6740d85c4e3daeef29a89470/682661a7e0be9e75079471f8_52345234321432.png" 
+                             alt="Twitter" style="margin-right: 8px; width: 16px; height: 16px;"> 
                         <span style="font-weight: bold; color: #000080;">Follow @WeinerPerkins on Twitter</span>
                     </button>
                 </a>
@@ -1839,16 +1841,16 @@ document.querySelectorAll('.icon[data-window="contact"], .start-menu-item[data-w
     item.addEventListener('click', function() {
         const contactWindow = document.getElementById('contact');
         
-        // Set dimensions
+        // Set dimensions - increased height from 550px to 580px
         contactWindow.style.width = "500px";
-        contactWindow.style.height = "550px";
+        contactWindow.style.height = "580px";
         
         // Center on screen
         const screenWidth = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
         const screenHeight = window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight;
         
         const leftPosition = Math.max(0, (screenWidth - 500) / 2);
-        const topPosition = Math.max(0, (screenHeight - 550) / 2);
+        const topPosition = Math.max(0, (screenHeight - 580) / 2);
         
         contactWindow.style.left = leftPosition + "px";
         contactWindow.style.top = topPosition + "px";
