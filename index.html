@@ -935,16 +935,15 @@ setTimeout(addTestVoiceButton, 1000);
                 
                 // Call to your backend API that handles Anthropic API interaction
                 const response = await fetch('/api/chat', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify({
-                        message: userMessage,
-                        // You can add additional context about Weiner Perkins here
-                        context: "You are an AI assistant for Weiner Perkins, a satirical fake venture capital firm focused on memecoins. Your name is Weiner AI. Be humorous, slightly sarcastic, and knowledgeable about crypto memes and joke investments. Respond as if you're a VC partner who takes obviously bad investments very seriously."
-                    })
-                });
+  method: 'POST',
+  headers: {
+    'Content-Type': 'application/json',
+  },
+  body: JSON.stringify({
+    message: userMessage
+    // No context parameter, let the backend use its own system prompt
+  })
+});
                 
                 console.log("API Response Status:", response.status);
                 
