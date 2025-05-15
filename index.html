@@ -125,6 +125,7 @@
             position: absolute;
             background-color: #c0c0c0;
             border-top: 1px solid #dfdfdf;
+            overflow: hidden !important;
             border-left: 1px solid #dfdfdf;
             border-right: 2px solid #404040;
             border-bottom: 2px solid #404040;
@@ -203,11 +204,11 @@
             color: white;
             padding: 3px 5px;
             width: 100% !important;
-            box-sizing: border-box;
+            box-sizing: border-box !important;
             font-weight: bold;
             font-size: 12px;
-            display: flex;
-            justify-content: space-between;
+            display: flex !important;
+            justify-content: space-between !important;
             align-items: center;
             cursor: move;
         }
@@ -760,6 +761,11 @@
             <div class="window-button close">X</div>
         </div>
     </div>
+    <div class="window-content roadmap-content" style="text-align: center; padding: 0; height: calc(100% - 21px); overflow: auto;">
+        <img src="https://cdn.prod.website-files.com/6740d85c4e3daeef29a89470/682668d92b43c6d7c4a93df8_ChatGPT%20Image%20May%2015%2C%202025%2C%2011_21_08%20PM.png" 
+             style="max-width: 100%; width: auto; height: auto;" alt="Weiner Perkins Roadmap">
+    </div>
+</div>
     <div class="window-content roadmap-content" style="text-align: center; padding: 0; height: calc(100% - 21px); overflow: auto;">
         <img src="https://cdn.prod.website-files.com/6740d85c4e3daeef29a89470/682668d92b43c6d7c4a93df8_ChatGPT%20Image%20May%2015%2C%202025%2C%2011_21_08%20PM.png" 
              style="max-width: 100%; width: auto; height: auto;" alt="Weiner Perkins Roadmap">
@@ -1723,6 +1729,52 @@ window.addEventListener('resize', function() {
 document.addEventListener('DOMContentLoaded', function() {
     const activeWindows = document.querySelectorAll('.window.active');
     activeWindows.forEach(win => centerWindow(win));
+});
+
+// Make My Computer window open higher
+document.querySelectorAll('.icon[data-window="my-computer"], .start-menu-item[data-window="my-computer"]').forEach(item => {
+    item.addEventListener('click', function() {
+        const myComputerWindow = document.getElementById('my-computer');
+        
+        // Set specific dimensions
+        myComputerWindow.style.width = "900px";
+        myComputerWindow.style.height = "700px";
+        
+        // Position higher on the screen
+        const screenWidth = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
+        const leftPosition = Math.max(0, (screenWidth - 900) / 2);
+        
+        myComputerWindow.style.left = leftPosition + "px";
+        myComputerWindow.style.top = "20px"; // Position higher
+    });
+});
+
+// Make Tokenomics window wider and longer
+document.querySelectorAll('.icon[data-window="token"], .start-menu-item[data-window="token"]').forEach(item => {
+    item.addEventListener('click', function() {
+        const tokenWindow = document.getElementById('token');
+        
+        // Increase dimensions
+        tokenWindow.style.width = "1000px"; // Wider
+        tokenWindow.style.height = "800px"; // Longer
+        
+        // Center on screen
+        const screenWidth = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
+        const screenHeight = window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight;
+        
+        const leftPosition = Math.max(0, (screenWidth - 1000) / 2);
+        const topPosition = Math.max(0, (screenHeight - 800) / 2);
+        
+        tokenWindow.style.left = leftPosition + "px";
+        tokenWindow.style.top = topPosition + "px";
+        
+        // Ensure the header spans the full width
+        const tokenHeader = tokenWindow.querySelector('.window-header');
+        if (tokenHeader) {
+            tokenHeader.style.width = "100%";
+            tokenHeader.style.boxSizing = "border-box";
+        }
+    });
 });
     </script>
 </body>
