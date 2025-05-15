@@ -758,6 +758,50 @@
             // Handle window resize
             window.addEventListener('resize', onModelWindowResize);
         }
+
+        // Add this to your index.html script section
+function addTestVoiceButton() {
+  const button = document.createElement('button');
+  button.className = 'win98-button';
+  button.textContent = 'Test Voice API';
+  button.style.marginTop = '10px';
+  button.onclick = async function() {
+    console.log('Testing voice API...');
+    try {
+      const response = await fetch('/api/voice', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ text: 'This is a test of the voice API. If you can hear this, the voice is working correctly.' })
+      });
+      
+      console.log('Voice test response status:', response.status);
+      
+      if (!response.ok) {
+        const errorText = await response.text();
+        console.error('Voice test error:', errorText);
+        alert('Voice test failed: ' + errorText);
+        return;
+      }
+      
+      const audioBlob = await response.blob();
+      console.log('Received audio blob:', audioBlob.type, audioBlob.size);
+      
+      const audioUrl = URL.createObjectURL(audioBlob);
+      const audio = new Audio(audioUrl);
+      audio.play();
+      console.log('Audio playback started');
+    } catch (error) {
+      console.error('Voice test error:', error);
+      alert('Voice test error: ' + error.message);
+    }
+  };
+  
+  // Add to the chat input area
+  document.querySelector('.chat-input').appendChild(button);
+}
+
+// Call this function after page load
+setTimeout(addTestVoiceButton, 1000);
         
         function onModelWindowResize() {
             if (!modelLoaded) return;
