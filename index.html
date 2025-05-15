@@ -748,40 +748,38 @@
         </div>
     </div>
 
-    <div class="window" id="roadmap">
-        <div class="window-header">
-            <div>Weiner Perkins Roadmap</div>
-            <div class="window-buttons">
-                <div class="window-button minimize">_</div>
-                <div class="window-button maximize">□</div>
-                <div class="window-button close">X</div>
-            </div>
-        </div>
-        <div class="window-content roadmap-content">
-            <h3>Strategic Roadmap</h3>
-            <p><strong>Phase 1: Launch (Q2 2025)</strong></p>
-            <ul>
-                <li>Create this Windows 98 website</li>
-                <li>Launch $WEINER token</li>
-                <li>Get listed on CoinGecko (maybe)</li>
-                <li>First meme competition</li>
-            </ul>
-            <p><strong>Phase 2: Growth (Q3 2025)</strong></p>
-            <ul>
-                <li>Reach 10,000 holders</li>
-                <li>Launch Weiner Perkins Incubator for other joke tokens</li>
-                <li>Announce partnerships with other memecoins</li>
-                <li>Release "Why We Passed" blog about legitimate projects</li>
-            </ul>
-            <p><strong>Phase 3: Exit (Q4 2025)</strong></p>
-            <ul>
-                <li>Rug pull (just kidding!)</li>
-                <li>Launch Weiner DAO to govern absolutely nothing</li>
-                <li>Virtual office in some metaverse nobody uses</li>
-                <li>Become a real VC firm through the power of irony</li>
-            </ul>
+    <!-- Updated Roadmap Window -->
+<div class="window" id="roadmap">
+    <div class="window-header">
+        <div>Weiner Perkins Roadmap</div>
+        <div class="window-buttons">
+            <div class="window-button minimize">_</div>
+            <div class="window-button maximize">□</div>
+            <div class="window-button close">X</div>
         </div>
     </div>
+    <div class="window-content roadmap-content" style="text-align: center; padding: 0;">
+        <img src="https://cdn.prod.website-files.com/6740d85c4e3daeef29a89470/682668d92b43c6d7c4a93df8_ChatGPT%20Image%20May%2015%2C%202025%2C%2011_21_08%20PM.png" 
+             style="width: 100%; height: auto; max-width: 800px;" alt="Weiner Perkins Roadmap">
+    </div>
+</div>
+
+<!-- Email Notification -->
+<div id="email-notification" style="position: fixed; bottom: 35px; right: 10px; background-color: #c0c0c0; border: 2px solid #000080; padding: 0; width: 300px; z-index: 9999; display: none; box-shadow: 3px 3px 5px rgba(0,0,0,0.3);">
+    <div style="background-color: #000080; color: white; padding: 3px 5px; font-weight: bold; font-size: 12px; display: flex; justify-content: space-between; align-items: center;">
+        <div>New Email - Outlook Express</div>
+        <div class="window-button close" style="width: 16px; height: 14px; background-color: #c0c0c0; border-top: 1px solid #ffffff; border-left: 1px solid #ffffff; border-right: 1px solid #808080; border-bottom: 1px solid #808080; display: flex; justify-content: center; align-items: center; font-size: 9px; cursor: pointer;">X</div>
+    </div>
+    <div style="padding: 10px; font-size: 12px;">
+        <div style="margin-bottom: 5px;"><strong>From:</strong> Jack Weinerstein</div>
+        <div style="margin-bottom: 5px;"><strong>Subject:</strong> RE: Corporate retreat</div>
+        <div style="margin-bottom: 10px;"><strong>Date:</strong> May 15, 2025 4:20 PM</div>
+        <div style="border-top: 1px solid #808080; padding-top: 10px;">
+            I repeat no wives are allowed on the Weiner Perkins corporate retreat<br><br>
+            PS. Jen finish the roadmap section
+        </div>
+    </div>
+</div>
 
     <div class="window" id="contact">
         <div class="window-header">
@@ -1630,6 +1628,30 @@ document.querySelectorAll('.window').forEach(window => {
             item.addEventListener('click', function() {
                 // Set a timeout to ensure the window is open before setting up the video
                 setTimeout(setupVideoPlayer, 100);
+            });
+        });
+
+        document.querySelectorAll('.icon[data-window="roadmap"], .start-menu-item[data-window="roadmap"]').forEach(item => {
+            item.addEventListener('click', function() {
+                // Show email notification after a short delay
+                setTimeout(() => {
+                    const emailNotification = document.getElementById('email-notification');
+                    emailNotification.style.display = 'block';
+                    
+                    // Play notification sound
+                    const notificationSound = new Audio('data:audio/wav;base64,UklGRqYDAABXQVZFZm10IBAAAAABAAEARKwAAIhYAQACABAAZGF0YYIDAAAAAAEACwAOAA8ACwAGAAEA//8EAAsAEgAVABIACgADAP7/AAAHABAAFgAXABEACAACAAEABgAOABQAFgASAAoABAABAAUADAARABQAEgALAAQAAgAFAAsAEAAUABIACwAFAAIABAAKAA8AEwASAA0ABgADAAQACQAOABIAEgAOAAcAAwADAAkADgARABIADgAIAAQAAwAIAA0AEQASAAoACQAEAAIABgAOABIAEQAQAAkABQACAAcADAAPABEADwALAAUAAgAGAAsADwARAA8ACwAGAAMABQAKAA4AEAAQAAwABgADAAUACgAOAA8AEAANAAcAAwAEAAkADQAPABAADQAIAAQABAAJAAwADwAPAA0ACAAFAAQACAANABAAD4ANAAkABAADAAkADQAOAA8ADgAJAAUAAwAIAAwADgAPAA4ACgAFAAMABwAMAA4ADwAOAAoABgAEAAcACwANAA8ADgALAAYABAAGAAsADQAOAA4ACwAHAAQABgAKAA0ADgAOAAsABwAFAAYACgAMAA4ADgAMAAcABQAFAAoADAAOAA4ADAAIAAUABQAJAAwADQAOAAwAZAAEAAUACQAMAA0ADgANANwABQAFAAgACwANAA4ADQDcAAUABQAIAAsADQAOAA0A3AAFAAUABwALAA0ADgANANwABgAFAAcACgANAA0ADQDcAAYABQAHAAkADAANAA0A3AAHAAUABgAJAAwADQANANwABwAFAAYACQALAA0ADQDcAAgABQAGAAgACwANAA0A3AAIAAUABgAIAAoADQANANwACQAFAAUABwAKAAwADQDcAAkABgAFAAcACgAMAA0A3AAKAAYABQAHAAkADAANANwACgAGAAUABgAJAAwADADcAAsABgAFAAYACQALAAwA3AALAAYABQAGAAgACwAMANwADAAHAAUABgAIAAoADADcAAwABwAFAAYABwAKAAwA3AANAAcABQAFAAcACgAMANwADQAIAAUABQAHAAkACwDcAA4ACAAFAAUABgAJAAsA3AAOAAgABQAFAAYACQALANwADwAJAAUABQAGAAgACwDcAA8ACQAFAAUABgAIAAoA3AAQAAkABQAFAAYABwAKANwAEAAKAAUABQAFAAcACgDcABEACgAFAAUABQAHAAkA3AARc');
+                    notificationSound.play().catch(e => console.log("Audio play failed:", e));
+                    
+                    // Close notification when clicking the X button
+                    emailNotification.querySelector('.close').addEventListener('click', function() {
+                        emailNotification.style.display = 'none';
+                    });
+                    
+                    // Auto-hide after 15 seconds
+                    setTimeout(() => {
+                        emailNotification.style.display = 'none';
+                    }, 15000);
+                }, 2000);
             });
         });
     </script>
