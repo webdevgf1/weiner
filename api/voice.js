@@ -1,5 +1,4 @@
 // api/voice.js - Handles communication with Eleven Labs API
-import axios from 'axios';
 
 export default async function handler(req, res) {
   // Only allow POST requests
@@ -12,6 +11,9 @@ export default async function handler(req, res) {
     
     // Log incoming request
     console.log("Processing voice request for text:", text.substring(0, 50) + "...");
+    
+    // Import axios dynamically
+    const { default: axios } = await import('axios');
     
     // ElevenLabs API endpoint
     const apiUrl = 'https://api.elevenlabs.io/v1/text-to-speech/';
