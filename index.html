@@ -667,8 +667,8 @@
             // Camera setup
             const width = container.clientWidth;
             const height = container.clientHeight;
-            modelCamera = new THREE.PerspectiveCamera(45, width / height, 0.1, 100);
-            modelCamera.position.set(0, 0.5, 2.5); // Adjusted position to show full body
+            modelCamera = new THREE.PerspectiveCamera(40, width / height, 0.1, 100);
+            modelCamera.position.set(0, 0.2, 2.2); // Adjusted to focus on upper body
             
             // Lighting
             const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
@@ -689,7 +689,7 @@
             
             // Controls - DISABLED
             modelControls = new THREE.OrbitControls(modelCamera, canvas);
-            modelControls.target.set(0, 0.5, 0); // Adjusted target point
+            modelControls.target.set(0, 0.0, 0); // Look more at chest level
             modelControls.update();
             modelControls.enabled = false; // Disable all controls
             modelControls.enablePan = false;
@@ -707,8 +707,8 @@
                     const model = gltf.scene;
                     
                     // Scale and position the model
-                    model.scale.set(0.8, 0.8, 0.8); // Smaller scale to show full character
-                    model.position.set(0, -0.7, 0); // Move down to show full body
+                    model.scale.set(1.0, 1.0, 1.0); // Return to normal scale
+                    model.position.set(0, -1.5, 0); // Move much further down to show from hips up
                     
                     modelScene.add(model);
                     
