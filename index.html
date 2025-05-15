@@ -591,12 +591,14 @@
         <div class="window-content" style="padding: 0; display: flex; height: calc(100% - 21px);">
             <!-- 3D Model Area -->
             <div class="model-container" style="width: 550px; background-color: #000080; border-right: 2px solid #404040; position: relative;">
-                <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); text-align: center;">
-                    <img src="/api/placeholder/480/480" alt="3D Model Placeholder" style="border: 3px inset #c0c0c0;">
-                    <div style="margin-top: 15px; color: white; font-size: 18px; font-weight: bold;">WEINER AI</div>
-                    <button class="win98-button" id="toggle-voice" style="margin-top: 20px; font-size: 14px; padding: 8px 15px;">
-                        <img src="/api/placeholder/16/16" alt="Sound" style="vertical-align: middle; margin-right: 8px;"> Voice: OFF
-                    </button>
+                <div id="model-canvas-container" style="width: 100%; height: 100%; position: relative;">
+                    <canvas id="model-canvas" style="width: 100%; height: 100%;"></canvas>
+                    <div style="position: absolute; bottom: 15px; left: 0; width: 100%; text-align: center;">
+                        <div style="color: white; font-size: 18px; font-weight: bold; margin-bottom: 10px;">WEINER AI</div>
+                        <button class="win98-button" id="toggle-voice" style="font-size: 14px; padding: 8px 15px;">
+                            <img src="/api/placeholder/16/16" alt="Sound" style="vertical-align: middle; margin-right: 8px;"> Voice: OFF
+                        </button>
+                    </div>
                 </div>
             </div>
             
@@ -629,6 +631,10 @@
         </div>
     </div>
     
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/dat-gui/0.7.7/dat.gui.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/GLTFLoader.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
     <script>
         // Update clock
         function updateClock() {
@@ -644,6 +650,148 @@
         setInterval(updateClock, 1000);
         updateClock();
 
+        // 3D Model Setup
+        let modelScene, modelCamera, modelRenderer, modelControls, modelMixer, modelClock;
+        let modelLoaded = false;
+        
+        function initModel() {
+            if (modelLoaded) return;
+            
+            const container = document.getElementById('model-canvas-container');
+            const canvas = document.getElementById('model-canvas');
+            
+            // Scene setup
+            modelScene = new THREE.Scene();
+            modelScene.background = new THREE.Color(0x000080); // Windows 98 blue
+            
+            // Camera setup
+            const width = container.clientWidth;
+            const height = container.clientHeight;
+            modelCamera = new THREE.PerspectiveCamera(45, width / height, 0.1, 100);
+            modelCamera.position.set(0, 1.5, 3);
+            
+            // Lighting
+            const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
+            modelScene.add(ambientLight);
+            
+            const directionalLight = new THREE.DirectionalLight(0xffffff, 1);
+            directionalLight.position.set(2, 2, 1);
+            modelScene.add(directionalLight);
+            
+            // Renderer
+            modelRenderer = new THREE.WebGLRenderer({
+                canvas: canvas,
+                antialias: true
+            });
+            modelRenderer.setSize(width, height);
+            modelRenderer.setPixelRatio(window.devicePixelRatio);
+            modelRenderer.outputEncoding = THREE.sRGBEncoding;
+            
+            // Controls
+            modelControls = new THREE.OrbitControls(modelCamera, canvas);
+            modelControls.target.set(0, 1, 0);
+            modelControls.update();
+            modelControls.enablePan = false;
+            modelControls.enableDamping = true;
+            modelControls.minDistance = 1.5;
+            modelControls.maxDistance = 5;
+            modelControls.minPolarAngle = Math.PI / 4; // Limit rotation
+            modelControls.maxPolarAngle = Math.PI / 2;
+            
+            // Animation clock
+            modelClock = new THREE.Clock();
+            
+            // Load model
+            const loader = new THREE.GLTFLoader();
+            loader.load('https://raw.githubusercontent.com/webdevgf1/weiner/main/eric.glb', 
+                function(gltf) {
+                    const model = gltf.scene;
+                    
+                    // Scale and position the model
+                    model.scale.set(1.2, 1.2, 1.2);
+                    model.position.set(0, 0, 0);
+                    
+                    modelScene.add(model);
+                    
+                    // Set up animations if they exist
+                    if (gltf.animations && gltf.animations.length) {
+                        modelMixer = new THREE.AnimationMixer(model);
+                        const action = modelMixer.clipAction(gltf.animations[0]);
+                        action.play();
+                    }
+                    
+                    // Center model in view
+                    modelControls.target.set(0, 1, 0);
+                    modelControls.update();
+                    
+                    modelLoaded = true;
+                    animate();
+                },
+                function(xhr) {
+                    console.log((xhr.loaded / xhr.total * 100) + '% loaded');
+                },
+                function(error) {
+                    console.error('An error happened loading the model:', error);
+                    // Fallback to placeholder image if model fails to load
+                    document.getElementById('model-canvas-container').innerHTML = `
+                        <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); text-align: center;">
+                            <img src="/api/placeholder/480/480" alt="3D Model Placeholder" style="border: 3px inset #c0c0c0;">
+                            <div style="margin-top: 15px; color: white; font-size: 18px; font-weight: bold;">WEINER AI</div>
+                            <button class="win98-button" id="toggle-voice" style="margin-top: 20px; font-size: 14px; padding: 8px 15px;">
+                                <img src="/api/placeholder/16/16" alt="Sound" style="vertical-align: middle; margin-right: 8px;"> Voice: OFF
+                            </button>
+                        </div>
+                    `;
+                    // Re-attach event listener to new button
+                    document.getElementById('toggle-voice').addEventListener('click', function() {
+                        voiceEnabled = !voiceEnabled;
+                        this.innerHTML = `<img src="/api/placeholder/16/16" alt="Sound" style="vertical-align: middle; margin-right: 8px;"> Voice: ${voiceEnabled ? 'ON' : 'OFF'}`;
+                    });
+                }
+            );
+            
+            // Handle window resize
+            window.addEventListener('resize', onModelWindowResize);
+        }
+        
+        function onModelWindowResize() {
+            if (!modelLoaded) return;
+            
+            const container = document.getElementById('model-canvas-container');
+            const width = container.clientWidth;
+            const height = container.clientHeight;
+            
+            modelCamera.aspect = width / height;
+            modelCamera.updateProjectionMatrix();
+            modelRenderer.setSize(width, height);
+        }
+        
+        function animate() {
+            if (!modelLoaded) return;
+            
+            requestAnimationFrame(animate);
+            
+            // Update controls
+            modelControls.update();
+            
+            // Update animations
+            if (modelMixer) {
+                modelMixer.update(modelClock.getDelta());
+            }
+            
+            // Auto-rotate the model slightly
+            if (modelScene && modelScene.children && modelScene.children.length > 0) {
+                for (let i = 0; i < modelScene.children.length; i++) {
+                    if (modelScene.children[i].type === "Group") {
+                        modelScene.children[i].rotation.y += 0.005;
+                    }
+                }
+            }
+            
+            // Render scene
+            modelRenderer.render(modelScene, modelCamera);
+        }
+        
         // AI Chat Functionality
         const userInput = document.getElementById('user-input');
         const sendButton = document.getElementById('send-button');
@@ -652,13 +800,12 @@
         
         let voiceEnabled = false;
         
+        
         // Toggle voice function
         toggleVoiceButton.addEventListener('click', function() {
             voiceEnabled = !voiceEnabled;
             this.innerHTML = `<img src="/api/placeholder/16/16" alt="Sound" style="vertical-align: middle; margin-right: 5px;"> Voice: ${voiceEnabled ? 'ON' : 'OFF'}`;
         });
-        
-        // Function to add a message to the chat
         function addMessage(sender, message, isUser = false) {
             const messageDiv = document.createElement('div');
             messageDiv.className = isUser ? 'message user-message' : 'message ai-message';
@@ -732,6 +879,34 @@
         async function getAIResponse(userMessage) {
             // Showing typing indicator
             showTypingIndicator();
+            
+            // Make 3D model face forward
+            if (modelLoaded && modelScene) {
+                // Find the model and make it face forward
+                modelScene.traverse((object) => {
+                    if (object.type === "Group") {
+                        // Save current Y rotation
+                        const currentRotation = object.rotation.y;
+                        
+                        // Create a simple animation for the model
+                        const startTime = Date.now();
+                        const duration = 1000; // 1 second
+                        
+                        const animateModel = function() {
+                            const elapsed = Date.now() - startTime;
+                            const progress = Math.min(elapsed / duration, 1);
+                            
+                            // Rotate model to face forward with easing
+                            if (progress < 1) {
+                                requestAnimationFrame(animateModel);
+                            }
+                        };
+                        
+                        // Start animation
+                        animateModel();
+                    }
+                });
+            }
             
             // Simulate API delay (1-2 seconds)
             const delay = Math.floor(Math.random() * 1000) + 1000;
@@ -974,7 +1149,20 @@
             
             // Focus on the chat input
             document.getElementById('user-input').focus();
+            
+            // Initialize 3D model
+            initModel();
         }, 500);
+        
+        // Initialize model when AI window is opened
+        document.querySelectorAll('.icon[data-window="ai-assistant"], .start-menu-item[data-window="ai-assistant"]').forEach(item => {
+            item.addEventListener('click', function() {
+                // Initialize model if not already done
+                setTimeout(() => {
+                    initModel();
+                }, 100);
+            });
+        });
     </script>
 </body>
 </html>
