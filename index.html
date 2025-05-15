@@ -579,7 +579,7 @@
     </div>
 
     <!-- AI Assistant Window -->
-    <div class="window active" id="ai-assistant" style="width: 600px; height: 450px; top: 100px; left: 150px; z-index: 200;">
+    <div class="window active" id="ai-assistant" style="width: 800px; height: 600px; top: 50px; left: 100px; z-index: 200;">
         <div class="window-header">
             <div>Weiner AI Assistant</div>
             <div class="window-buttons">
@@ -590,11 +590,11 @@
         </div>
         <div class="window-content" style="padding: 0; display: flex; height: calc(100% - 21px);">
             <!-- 3D Model Area -->
-            <div class="model-container" style="width: 220px; background-color: #000080; border-right: 2px solid #404040; position: relative;">
+            <div class="model-container" style="width: 350px; background-color: #000080; border-right: 2px solid #404040; position: relative;">
                 <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); text-align: center;">
-                    <img src="/api/placeholder/180/180" alt="3D Model Placeholder" style="border: 2px inset #c0c0c0;">
-                    <div style="margin-top: 10px; color: white; font-size: 12px;">WEINER AI</div>
-                    <button class="win98-button" id="toggle-voice" style="margin-top: 10px; font-size: 11px;">
+                    <img src="/api/placeholder/300/300" alt="3D Model Placeholder" style="border: 2px inset #c0c0c0;">
+                    <div style="margin-top: 10px; color: white; font-size: 14px;">WEINER AI</div>
+                    <button class="win98-button" id="toggle-voice" style="margin-top: 15px; font-size: 12px;">
                         <img src="/api/placeholder/16/16" alt="Sound" style="vertical-align: middle; margin-right: 5px;"> Voice: OFF
                     </button>
                 </div>
@@ -603,24 +603,24 @@
             <!-- Chat Interface -->
             <div class="chat-container" style="flex: 1; display: flex; flex-direction: column; height: 100%;">
                 <!-- Chat Messages -->
-                <div class="chat-messages" id="chat-messages" style="flex: 1; overflow-y: auto; padding: 10px; background-color: white; border: 1px inset #808080;">
+                <div class="chat-messages" id="chat-messages" style="flex: 1; overflow-y: auto; padding: 15px; background-color: white; border: 1px inset #808080;">
                     <div class="message ai-message" style="margin-bottom: 10px;">
                         <div style="font-weight: bold; color: #000080;">Weiner AI:</div>
-                        <div style="background-color: #f0f0f0; padding: 5px; border: 1px solid #d0d0d0; border-radius: 3px;">
+                        <div style="background-color: #f0f0f0; padding: 10px; border: 1px solid #d0d0d0; border-radius: 3px; font-size: 14px;">
                             Welcome to Weiner Perkins! I'm your AI investment advisor. How can I help you with your memecoin ventures today?
                         </div>
                     </div>
                 </div>
                 
                 <!-- Chat Input -->
-                <div class="chat-input" style="padding: 10px; background-color: #c0c0c0; border-top: 1px solid #808080;">
+                <div class="chat-input" style="padding: 15px; background-color: #c0c0c0; border-top: 1px solid #808080;">
                     <div style="display: flex;">
                         <input type="text" id="user-input" 
-                               style="flex: 1; padding: 5px; font-family: 'MS Sans Serif'; font-size: 12px; border: 1px inset #808080;" 
+                               style="flex: 1; padding: 8px; font-family: 'MS Sans Serif'; font-size: 14px; border: 1px inset #808080;" 
                                placeholder="Ask Weiner AI something...">
-                        <button class="win98-button" id="send-button" style="margin-left: 5px;">Send</button>
+                        <button class="win98-button" id="send-button" style="margin-left: 8px; padding: 5px 15px; font-size: 14px;">Send</button>
                     </div>
-                    <div style="display: flex; margin-top: 5px; font-size: 10px; color: #404040;">
+                    <div style="display: flex; margin-top: 8px; font-size: 12px; color: #404040;">
                         <div>Powered by Anthropic Claude + Eleven Labs</div>
                         <div style="margin-left: auto;">Type /help for commands</div>
                     </div>
@@ -665,9 +665,22 @@
             
             const senderDiv = document.createElement('div');
             senderDiv.textContent = sender;
+            senderDiv.style.fontWeight = 'bold';
+            senderDiv.style.color = isUser ? '#008000' : '#000080';
             
             const contentDiv = document.createElement('div');
             contentDiv.textContent = message;
+            contentDiv.style.backgroundColor = isUser ? '#e8f4e8' : '#f0f0f0';
+            contentDiv.style.padding = '10px';
+            contentDiv.style.border = `1px solid ${isUser ? '#c0d0c0' : '#d0d0d0'}`;
+            contentDiv.style.borderRadius = '3px';
+            contentDiv.style.fontSize = '14px';
+            
+            if (isUser) {
+                contentDiv.style.display = 'inline-block';
+                contentDiv.style.textAlign = 'left';
+                contentDiv.style.maxWidth = '80%';
+            }
             
             messageDiv.appendChild(senderDiv);
             messageDiv.appendChild(contentDiv);
