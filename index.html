@@ -668,7 +668,7 @@
             const width = container.clientWidth;
             const height = container.clientHeight;
             modelCamera = new THREE.PerspectiveCamera(45, width / height, 0.1, 100);
-            modelCamera.position.set(0, 1.5, 3);
+            modelCamera.position.set(0, 0.5, 2.5); // Adjusted position to show full body
             
             // Lighting
             const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
@@ -687,16 +687,15 @@
             modelRenderer.setPixelRatio(window.devicePixelRatio);
             modelRenderer.outputEncoding = THREE.sRGBEncoding;
             
-            // Controls
+            // Controls - DISABLED
             modelControls = new THREE.OrbitControls(modelCamera, canvas);
-            modelControls.target.set(0, 1, 0);
+            modelControls.target.set(0, 0.5, 0); // Adjusted target point
             modelControls.update();
+            modelControls.enabled = false; // Disable all controls
             modelControls.enablePan = false;
-            modelControls.enableDamping = true;
-            modelControls.minDistance = 1.5;
-            modelControls.maxDistance = 5;
-            modelControls.minPolarAngle = Math.PI / 4; // Limit rotation
-            modelControls.maxPolarAngle = Math.PI / 2;
+            modelControls.enableZoom = false;
+            modelControls.enableRotate = false;
+            modelControls.enableDamping = false;
             
             // Animation clock
             modelClock = new THREE.Clock();
@@ -708,8 +707,8 @@
                     const model = gltf.scene;
                     
                     // Scale and position the model
-                    model.scale.set(1.2, 1.2, 1.2);
-                    model.position.set(0, 0, 0);
+                    model.scale.set(0.8, 0.8, 0.8); // Smaller scale to show full character
+                    model.position.set(0, -0.7, 0); // Move down to show full body
                     
                     modelScene.add(model);
                     
@@ -721,7 +720,7 @@
                     }
                     
                     // Center model in view
-                    modelControls.target.set(0, 1, 0);
+                    modelControls.target.set(0, 0.5, 0); // Adjusted target point
                     modelControls.update();
                     
                     modelLoaded = true;
@@ -779,7 +778,8 @@
                 modelMixer.update(modelClock.getDelta());
             }
             
-            // Auto-rotate the model slightly
+            // Auto-rotate the model slightly - DISABLED
+            /* 
             if (modelScene && modelScene.children && modelScene.children.length > 0) {
                 for (let i = 0; i < modelScene.children.length; i++) {
                     if (modelScene.children[i].type === "Group") {
@@ -787,6 +787,7 @@
                     }
                 }
             }
+            */
             
             // Render scene
             modelRenderer.render(modelScene, modelCamera);
@@ -880,7 +881,8 @@
             // Showing typing indicator
             showTypingIndicator();
             
-            // Make 3D model face forward
+            // Make 3D model face forward - DISABLED
+            /*
             if (modelLoaded && modelScene) {
                 // Find the model and make it face forward
                 modelScene.traverse((object) => {
@@ -907,6 +909,7 @@
                     }
                 });
             }
+            */
             
             // Simulate API delay (1-2 seconds)
             const delay = Math.floor(Math.random() * 1000) + 1000;
