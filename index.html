@@ -976,30 +976,31 @@ setTimeout(addTestVoiceButton, 1000);
                 return `Sorry, I'm having trouble connecting to my brain right now. As they say in VC, 'Sometimes the servers go down before the funding does.' Error details: ${error.message}`;
             }
         }
-        
-        // Function to play voice using Eleven Labs API
-        // Function to play voice using Eleven Labs API
-async function playVoice(text) {
+
+        async function playVoice(text) {
   try {
-    console.log("Calling voice API with text:", text.substring(0, 50) + "...");
+    console.log("Frontend: Calling voice API with text:", text.substring(0, 30) + "...");
     
-    // Call to your backend API that handles Eleven Labs voice synthesis
+    // This calls your voice.js endpoint
     const response = await fetch('/api/voice', {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
+      headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ text })
     });
     
-    // Check if logging shows this function is being called
-    console.log("Voice API Response Status:", response.status);
-    
     if (!response.ok) {
-      const errorText = await response.text();
-      console.error("Voice API Error:", errorText);
-      throw new Error(`Failed to get voice response: ${response.status} ${errorText}`);
+      throw new Error(`Voice API error: ${response.status}`);
     }
+    
+    // Get audio data and play it
+    const audioBlob = await response.blob();
+    const audioUrl = URL.createObjectURL(audioBlob);
+    const audio = new Audio(audioUrl);
+    await audio.play();
+  } catch (error) {
+    console.error("Frontend: Error playing voice:", error);
+  }
+}
     
     // The response should be an audio blob
     const audioBlob = await response.blob();
