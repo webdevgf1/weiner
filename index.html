@@ -579,6 +579,960 @@
     </div>
 
     <!-- AI Assistant Window -->
+    <div class="window active" id="ai-assistant" style="width: 1200px; height: 800px; top: 20px; left: 50px; z-index: 200;">
+        <div class="window-header">
+            <div>Weiner AI Assistant</div>
+            <div class="window-buttons">
+                <div class="window-button minimize">_</div>
+                <div class="window-button maximize">□</div>
+                <div class="window-button close">X</div>
+            </div>
+        </div>
+        <div class="window-content" style="padding: 0; display: flex; height: calc(100% - 21px);">
+            <!-- 3D Model Area -->
+            <div class="model-container" style="width: 550px; background-color: #000080; border-right: 2px solid #404040; position: relative;">
+                <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); text-align: center;">
+                    <img src="/api/placeholder/480/480" alt="3D Model Placeholder" style="border: 3px inset #c0c0c0;">
+                    <div style="margin-top: 15px; color: white; font-size: 18px; font-weight: bold;">WEINER AI</div>
+                    <button class="win98-button" id="toggle-voice" style="margin-top: 20px; font-size: 14px; padding: 8px 15px;">
+                        <img src="/api/placeholder/16/16" alt="Sound" style="vertical-align: middle; margin-right: 8px;"> Voice: OFF
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Chat Interface -->
+            <div class="chat-container" style="flex: 1; display: flex; flex-direction: column; height: 100%;">
+                <!-- Chat Messages -->
+                <div class="chat-messages" id="chat-messages" style="flex: 1; overflow-y: auto; padding: 20px; background-color: white; border: 1px inset #808080;">
+                    <div class="message ai-message" style="margin-bottom: 15px;">
+                        <div style="font-weight: bold; color: #000080; font-size: 16px; margin-bottom: 5px;">Weiner AI:</div>
+                        <div style="background-color: #f0f0f0; padding: 15px; border: 1px solid #d0d0d0; border-radius: 5px; font-size: 16px; line-height: 1.4;">
+                            Welcome to Weiner Perkins! I'm your AI investment advisor. How can I help you with your memecoin ventures today?
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Chat Input -->
+                <div class="chat-input" style="padding: 20px; background-color: #c0c0c0; border-top: 1px solid #808080;">
+                    <div style="display: flex;">
+                        <input type="text" id="user-input" 
+                               style="flex: 1; padding: 12px; font-family: 'MS Sans Serif'; font-size: 16px; border: 1px inset #808080;" 
+                               placeholder="Ask Weiner AI something...">
+                        <button class="win98-button" id="send-button" style="margin-left: 12px; padding: 8px 20px; font-size: 16px; min-width: 100px;">Send</button>
+                    </div>
+                    <div style="display: flex; margin-top: 10px; font-size: 14px; color: #404040;">
+                        <div>Powered by Anthropic Claude + Eleven Labs</div>
+                        <div style="margin-left: auto;">Type /help for commands</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        // Update clock
+        function updateClock() {
+            const now = new Date();
+            let hours = now.getHours();
+            const minutes = now.getMinutes().toString().padStart(2, '0');
+            const ampm = hours >= 12 ? 'PM' : 'AM';
+            hours = hours % 12;
+            hours = hours ? hours : 12; // the hour '0' should be '12'
+            document.getElementById('taskbar-time').textContent = `${hours}:${minutes} ${ampm}`;
+        }
+        
+        setInterval(updateClock, 1000);
+        updateClock();
+
+        // AI Chat Functionality
+        const userInput = document.getElementById('user-input');
+        const sendButton = document.getElementById('send-button');
+        const chatMessages = document.getElementById('chat-messages');
+        const toggleVoiceButton = document.getElementById('toggle-voice');
+        
+        let voiceEnabled = false;
+        
+        // Toggle voice function
+        toggleVoiceButton.addEventListener('click', function() {
+            voiceEnabled = !voiceEnabled;
+            this.innerHTML = `<img src="/api/placeholder/16/16" alt="Sound" style="vertical-align: middle; margin-right: 5px;"> Voice: ${voiceEnabled ? 'ON' : 'OFF'}`;
+        });
+        
+        // Function to add a message to the chat
+        function addMessage(sender, message, isUser = false) {
+            const messageDiv = document.createElement('div');
+            messageDiv.className = isUser ? 'message user-message' : 'message ai-message';
+            messageDiv.style.marginBottom = '15px';
+            
+            const senderDiv = document.createElement('div');
+            senderDiv.textContent = sender;
+            senderDiv.style.fontWeight = 'bold';
+            senderDiv.style.color = isUser ? '#008000' : '#000080';
+            senderDiv.style.fontSize = '16px';
+            senderDiv.style.marginBottom = '5px';
+            
+            const contentDiv = document.createElement('div');
+            contentDiv.textContent = message;
+            contentDiv.style.backgroundColor = isUser ? '#e8f4e8' : '#f0f0f0';
+            contentDiv.style.padding = '15px';
+            contentDiv.style.border = `1px solid ${isUser ? '#c0d0c0' : '#d0d0d0'}`;
+            contentDiv.style.borderRadius = '5px';
+            contentDiv.style.fontSize = '16px';
+            contentDiv.style.lineHeight = '1.4';
+            
+            if (isUser) {
+                contentDiv.style.display = 'inline-block';
+                contentDiv.style.textAlign = 'left';
+                contentDiv.style.maxWidth = '80%';
+            }
+            
+            messageDiv.appendChild(senderDiv);
+            messageDiv.appendChild(contentDiv);
+            
+            chatMessages.appendChild(messageDiv);
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        }
+        
+        // Function to show typing indicator
+        function showTypingIndicator() {
+            const typingDiv = document.createElement('div');
+            typingDiv.className = 'message ai-message';
+            typingDiv.id = 'typing-indicator';
+            typingDiv.style.marginBottom = '15px';
+            
+            const senderDiv = document.createElement('div');
+            senderDiv.style.fontWeight = 'bold';
+            senderDiv.style.color = '#000080';
+            senderDiv.style.fontSize = '16px';
+            senderDiv.style.marginBottom = '5px';
+            senderDiv.textContent = 'Weiner AI:';
+            
+            const indicatorDiv = document.createElement('div');
+            indicatorDiv.className = 'typing-indicator';
+            indicatorDiv.style.padding = '15px';
+            indicatorDiv.innerHTML = '<span></span><span></span><span></span>';
+            
+            typingDiv.appendChild(senderDiv);
+            typingDiv.appendChild(indicatorDiv);
+            
+            chatMessages.appendChild(typingDiv);
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        }
+        
+        // Function to remove typing indicator
+        function removeTypingIndicator() {
+            const typingIndicator = document.getElementById('typing-indicator');
+            if (typingIndicator) {
+                typingIndicator.remove();
+            }
+        }
+        
+        // Function to handle AI response
+        // This is a placeholder - you will replace this with your Anthropic API call
+        async function getAIResponse(userMessage) {
+            // Showing typing indicator
+            showTypingIndicator();
+            
+            // Simulate API delay (1-2 seconds)
+            const delay = Math.floor(Math.random() * 1000) + 1000;
+            
+            return new Promise(resolve => {
+                setTimeout(() => {
+                    // This is where you would integrate the Anthropic API
+                    // For now, we'll just have some canned responses
+                    
+                    let response;
+                    
+                    if (userMessage.toLowerCase().includes('/help')) {
+                        response = "Available commands:\n/help - Show this help message\n/token - Information about $WEINER token\n/team - Meet our team\n/roadmap - View our roadmap";
+                    } else if (userMessage.toLowerCase().includes('hello') || userMessage.toLowerCase().includes('hi')) {
+                        response = "Hello there! I'm the Weiner AI assistant. I'm here to help with all your memecoin needs!";
+                    } else if (userMessage.toLowerCase().includes('token') || userMessage.toLowerCase().includes('price')) {
+                        response = "The $WEINER token is launching soon with a total supply of 69,420,000,000 tokens. It will be available on major DEXs. Would you like to know more about our tokenomics?";
+                    } else if (userMessage.toLowerCase().includes('team')) {
+                        response = "Our team is led by Frank Weiner, our Chief Meme Officer. We also have Hotdog Capital, our AI investor bot, and several other highly qualified meme specialists.";
+                    } else if (userMessage.toLowerCase().includes('invest')) {
+                        response = "Fantastic! The best way to invest in Weiner Perkins is to buy and hold our $WEINER token. Remember: this is not financial advice, just memecoin wisdom.";
+                    } else {
+                        response = "That's a great question about memecoins! At Weiner Perkins, we're revolutionizing the fake VC space with innovative approaches to doing absolutely nothing of value. Can I help you with something specific about our $WEINER token or roadmap?";
+                    }
+                    
+                    // Removing typing indicator
+                    removeTypingIndicator();
+                    
+                    // When integrated with Eleven Labs, this is where you would trigger text-to-speech
+                    if (voiceEnabled) {
+                        // Placeholder for Eleven Labs integration
+                        console.log("Voice would play here via Eleven Labs API");
+                    }
+                    
+                    resolve(response);
+                }, delay);
+            });
+        }
+        
+        // Send message on button click
+        sendButton.addEventListener('click', async function() {
+            const message = userInput.value.trim();
+            if (message) {
+                // Add user message
+                addMessage('You:', message, true);
+                
+                // Clear input
+                userInput.value = '';
+                
+                // Get and display AI response
+                const aiResponse = await getAIResponse(message);
+                addMessage('Weiner AI:', aiResponse);
+            }
+        });
+        
+        // Send message on Enter key
+        userInput.addEventListener('keypress', async function(e) {
+            if (e.key === 'Enter') {
+                const message = userInput.value.trim();
+                if (message) {
+                    // Add user message
+                    addMessage('You:', message, true);
+                    
+                    // Clear input
+                    userInput.value = '';
+                    
+                    // Get and display AI response
+                    const aiResponse = await getAIResponse(message);
+                    addMessage('Weiner AI:', aiResponse);
+                }
+            }
+        });
+        
+        // Focus input when AI window is clicked
+        document.getElementById('ai-assistant').addEventListener('click', function(e) {
+            // Don't focus if clicking on a button
+            if (!e.target.closest('button')) {
+                userInput.focus();
+            }
+            
+            // Bring window to front
+            document.querySelectorAll('.window').forEach(win => {
+                win.style.zIndex = "10";
+            });
+            this.style.zIndex = "101";
+        });
+        
+        // Start Menu Toggle
+        document.getElementById('start-button').addEventListener('click', function() {
+            document.getElementById('start-menu').classList.toggle('active');
+        });
+
+        // Hide Start Menu when clicking elsewhere
+        document.addEventListener('click', function(event) {
+            if (!event.target.closest('#start-button') && !event.target.closest('#start-menu')) {
+                document.getElementById('start-menu').classList.remove('active');
+            }
+        });
+
+        // Open windows from icons
+        document.querySelectorAll('.icon, .start-menu-item').forEach(item => {
+            item.addEventListener('click', function() {
+                const windowId = this.getAttribute('data-window');
+                document.querySelectorAll('.window').forEach(win => {
+                    win.classList.remove('active');
+                });
+                document.getElementById(windowId).classList.add('active');
+                document.getElementById('start-menu').classList.remove('active');
+                
+                // Bring window to front (adjust z-index)
+                document.querySelectorAll('.window.active').forEach(win => {
+                    win.style.zIndex = "100";
+                });
+                document.getElementById(windowId).style.zIndex = "101";
+            });
+        });
+
+        // Window Controls
+        document.querySelectorAll('.window-button.close').forEach(button => {
+            button.addEventListener('click', function() {
+                this.closest('.window').classList.remove('active');
+            });
+        });
+
+        document.querySelectorAll('.window-button.minimize').forEach(button => {
+            button.addEventListener('click', function() {
+                this.closest('.window').classList.remove('active');
+            });
+        });
+
+        document.querySelectorAll('.window-button.maximize').forEach(button => {
+            button.addEventListener('click', function() {
+                const window = this.closest('.window');
+                if (window.style.width === '100%') {
+                    window.style.width = '500px';
+                    window.style.height = '400px';
+                    window.style.top = '50px';
+                    window.style.left = '50px';
+                } else {
+                    window.style.width = '100%';
+                    window.style.height = 'calc(100vh - 28px)';
+                    window.style.top = '0';
+                    window.style.left = '0';
+                }
+            });
+        });
+
+        // Make windows draggable
+        document.querySelectorAll('.window').forEach(window => {
+            let pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
+            
+            const header = window.querySelector('.window-header');
+            
+            if (header) {
+                header.onmousedown = dragMouseDown;
+            }
+            
+            function dragMouseDown(e) {
+                e = e || window.event;
+                e.preventDefault();
+                // Get the mouse cursor position at startup
+                pos3 = e.clientX;
+                pos4 = e.clientY;
+                document.onmouseup = closeDragElement;
+                // Call function whenever the cursor moves
+                document.onmousemove = elementDrag;
+                
+                // Bring window to front
+                document.querySelectorAll('.window').forEach(win => {
+                    win.style.zIndex = "10";
+                });
+                window.style.zIndex = "101";
+            }
+            
+            function elementDrag(e) {
+                e = e || window.event;
+                e.preventDefault();
+                // Calculate the new cursor position
+                pos1 = pos3 - e.clientX;
+                pos2 = pos4 - e.clientY;
+                pos3 = e.clientX;
+                pos4 = e.clientY;
+                // Set the element's new position
+                const top = (window.offsetTop - pos2);
+                const left = (window.offsetLeft - pos1);
+                
+                // Prevent dragging outside viewport
+                if (top >= 0 && top <= window.parentElement.clientHeight - 30) {
+                    window.style.top = top + "px";
+                }
+                if (left >= 0 && left <= window.parentElement.clientWidth - 30) {
+                    window.style.left = left + "px";
+                }
+            }
+            
+            function closeDragElement() {
+                // Stop moving when mouse button is released
+                document.onmouseup = null;
+                document.onmousemove = null;
+            }
+            
+            // Initial positioning for windows
+            window.style.top = (Math.random() * 100 + 50) + "px";
+            window.style.left = (Math.random() * 100 + 50) + "px";
+            window.style.width = "500px";
+            window.style.height = "400px";
+        });
+
+        // Open My Computer by default
+        setTimeout(() => {
+            // Don't open My Computer by default anymore, since we have the AI window
+            // But make sure AI window is open
+            document.getElementById('ai-assistant').classList.add('active');
+            document.getElementById('ai-assistant').style.zIndex = "101";
+            
+            // Focus on the chat input
+            document.getElementById('user-input').focus();
+        }, 500);
+    </script>
+</body>
+</html><!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weiner Perkins - Innovative Memecoin Ventures</title>
+    <style>
+        /* Reset and Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'MS Sans Serif', 'Lucida Grande', sans-serif;
+        }
+
+        body {
+            background-color: #008080; /* Classic Windows 98 teal */
+            overflow: hidden;
+            height: 100vh;
+            user-select: none;
+        }
+
+        /* Taskbar Styles */
+        .taskbar {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 28px;
+            background-color: #c0c0c0;
+            border-top: 1px solid #ffffff;
+            display: flex;
+            z-index: 1000;
+        }
+
+        .start-button {
+            display: flex;
+            align-items: center;
+            padding: 2px 5px;
+            margin: 2px;
+            background-color: #c0c0c0;
+            border-top: 1px solid #ffffff;
+            border-left: 1px solid #ffffff;
+            border-right: 1px solid #808080;
+            border-bottom: 1px solid #808080;
+            cursor: pointer;
+        }
+
+        .start-button:active {
+            border-top: 1px solid #808080;
+            border-left: 1px solid #808080;
+            border-right: 1px solid #ffffff;
+            border-bottom: 1px solid #ffffff;
+        }
+
+        .start-button img {
+            width: 16px;
+            height: 16px;
+            margin-right: 5px;
+        }
+
+        .taskbar-time {
+            position: absolute;
+            right: 5px;
+            top: 7px;
+            font-size: 11px;
+            background-color: #c0c0c0;
+            border-top: 1px solid #808080;
+            border-left: 1px solid #808080;
+            border-right: 1px solid #ffffff;
+            border-bottom: 1px solid #ffffff;
+            padding: 1px 5px;
+        }
+
+        /* Desktop Icon Styles */
+        .desktop {
+            padding: 10px;
+            display: grid;
+            grid-template-columns: repeat(auto-fill, 80px);
+            grid-auto-rows: 80px;
+            grid-gap: 10px;
+            height: calc(100vh - 28px);
+        }
+
+        .icon {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+            font-size: 11px;
+            cursor: pointer;
+            padding: 5px;
+            text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.7);
+        }
+
+        .icon:hover {
+            background-color: rgba(49, 106, 197, 0.3);
+        }
+
+        .icon:active, .icon.selected {
+            background-color: rgba(49, 106, 197, 0.5);
+        }
+
+        .icon img {
+            width: 32px;
+            height: 32px;
+            margin-bottom: 5px;
+        }
+
+        .icon-text {
+            max-width: 70px;
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+        }
+
+        /* Windows Styles */
+        .window {
+            position: absolute;
+            background-color: #c0c0c0;
+            border-top: 1px solid #dfdfdf;
+            border-left: 1px solid #dfdfdf;
+            border-right: 2px solid #404040;
+            border-bottom: 2px solid #404040;
+            box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+            min-width: 250px;
+            min-height: 150px;
+            display: none;
+            z-index: 10;
+        }
+        
+        /* AI Assistant Styles */
+        .ai-message {
+            margin-bottom: 10px;
+        }
+        
+        .user-message {
+            margin-bottom: 10px;
+            text-align: right;
+        }
+        
+        .user-message > div:first-child {
+            font-weight: bold;
+            color: #008000;
+        }
+        
+        .user-message > div:last-child {
+            background-color: #e8f4e8;
+            padding: 5px;
+            border: 1px solid #c0d0c0;
+            border-radius: 3px;
+            display: inline-block;
+            text-align: left;
+            max-width: 80%;
+        }
+        
+        .typing-indicator {
+            display: inline-block;
+            padding: 5px 10px;
+            background-color: #f0f0f0;
+            border: 1px solid #d0d0d0;
+            border-radius: 3px;
+        }
+        
+        .typing-indicator span {
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            background-color: #666;
+            border-radius: 50%;
+            margin-right: 3px;
+            animation: typing 1s infinite ease-in-out;
+        }
+        
+        .typing-indicator span:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+        
+        .typing-indicator span:nth-child(3) {
+            animation-delay: 0.4s;
+            margin-right: 0;
+        }
+        
+        @keyframes typing {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-5px); }
+            100% { transform: translateY(0px); }
+        }
+
+        .window.active {
+            z-index: 100;
+            display: block;
+        }
+
+        .window-header {
+            background-color: #000080;
+            color: white;
+            padding: 3px 5px;
+            font-weight: bold;
+            font-size: 12px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: move;
+        }
+
+        .window-buttons {
+            display: flex;
+        }
+
+        .window-button {
+            width: 16px;
+            height: 14px;
+            background-color: #c0c0c0;
+            border-top: 1px solid #ffffff;
+            border-left: 1px solid #ffffff;
+            border-right: 1px solid #808080;
+            border-bottom: 1px solid #808080;
+            margin-left: 2px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 9px;
+            cursor: pointer;
+        }
+
+        .window-content {
+            padding: 10px;
+            height: calc(100% - 25px);
+            overflow: auto;
+            font-size: 12px;
+            line-height: 1.4;
+        }
+
+        /* Start Menu Styles */
+        .start-menu {
+            position: fixed;
+            bottom: 28px;
+            left: 0;
+            width: 200px;
+            background-color: #c0c0c0;
+            border-top: 2px solid #ffffff;
+            border-left: 2px solid #ffffff;
+            border-right: 2px solid #404040;
+            border-bottom: 2px solid #404040;
+            display: none;
+            z-index: 2000;
+        }
+
+        .start-menu.active {
+            display: block;
+        }
+
+        .start-menu-header {
+            height: 35px;
+            background-color: #000080;
+            color: white;
+            display: flex;
+            align-items: center;
+            padding-left: 10px;
+            font-weight: bold;
+            font-size: 14px;
+        }
+
+        .start-menu-items {
+            padding: 2px 0;
+        }
+
+        .start-menu-item {
+            padding: 5px 10px;
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+        }
+
+        .start-menu-item:hover {
+            background-color: #000080;
+            color: white;
+        }
+
+        .start-menu-item img {
+            width: 24px;
+            height: 24px;
+            margin-right: 8px;
+        }
+
+        /* Custom Window Styles */
+        .about-content, .token-content, .team-content, .roadmap-content {
+            font-family: 'MS Sans Serif', 'Lucida Grande', sans-serif;
+            font-size: 12px;
+        }
+
+        .about-content h3, .token-content h3, .team-content h3, .roadmap-content h3 {
+            margin-bottom: 10px;
+            color: #000080;
+        }
+
+        .about-content p, .token-content p, .team-content p, .roadmap-content p {
+            margin-bottom: 10px;
+        }
+
+        .about-content ul, .token-content ul, .team-content ul, .roadmap-content ul {
+            margin-left: 20px;
+            margin-bottom: 10px;
+        }
+
+        /* Logo style for the 'My Computer' window */
+        .logo-container {
+            text-align: center;
+            margin: 20px 0;
+        }
+
+        .logo {
+            font-weight: bold;
+            font-size: 24px;
+            color: #000080;
+        }
+
+        .tagline {
+            font-style: italic;
+            margin-top: 5px;
+            color: #008080;
+        }
+
+        /* Button styling */
+        .win98-button {
+            background-color: #c0c0c0;
+            border-top: 2px solid #ffffff;
+            border-left: 2px solid #ffffff;
+            border-right: 2px solid #404040;
+            border-bottom: 2px solid #404040;
+            padding: 5px 10px;
+            margin: 5px;
+            cursor: pointer;
+            font-size: 12px;
+        }
+
+        .win98-button:active {
+            border-top: 2px solid #404040;
+            border-left: 2px solid #404040;
+            border-right: 2px solid #ffffff;
+            border-bottom: 2px solid #ffffff;
+        }
+    </style>
+</head>
+<body>
+    <!-- Desktop -->
+    <div class="desktop" id="desktop">
+        <!-- Desktop Icons -->
+        <div class="icon" data-window="my-computer">
+            <img src="/api/placeholder/32/32" alt="My Computer">
+            <div class="icon-text">My Computer</div>
+        </div>
+        <div class="icon" data-window="ai-assistant">
+            <img src="/api/placeholder/32/32" alt="Weiner AI">
+            <div class="icon-text">Weiner AI</div>
+        </div>
+        <div class="icon" data-window="about">
+            <img src="/api/placeholder/32/32" alt="About">
+            <div class="icon-text">About WP</div>
+        </div>
+        <div class="icon" data-window="token">
+            <img src="/api/placeholder/32/32" alt="Token Info">
+            <div class="icon-text">$WEINER Token</div>
+        </div>
+        <div class="icon" data-window="team">
+            <img src="/api/placeholder/32/32" alt="Team">
+            <div class="icon-text">Our Team</div>
+        </div>
+        <div class="icon" data-window="roadmap">
+            <img src="/api/placeholder/32/32" alt="Roadmap">
+            <div class="icon-text">Roadmap</div>
+        </div>
+        <div class="icon" data-window="contact">
+            <img src="/api/placeholder/32/32" alt="Contact">
+            <div class="icon-text">Contact</div>
+        </div>
+    </div>
+
+    <!-- Windows -->
+    <div class="window" id="my-computer">
+        <div class="window-header">
+            <div>My Computer - Weiner Perkins</div>
+            <div class="window-buttons">
+                <div class="window-button minimize">_</div>
+                <div class="window-button maximize">□</div>
+                <div class="window-button close">X</div>
+            </div>
+        </div>
+        <div class="window-content">
+            <div class="logo-container">
+                <div class="logo">WEINER PERKINS</div>
+                <div class="tagline">Disrupting VC with Memecoins Since 2025</div>
+            </div>
+            <p>Welcome to Weiner Perkins, the premier fake venture capital firm specializing in ironic memecoins and web3 satire.</p>
+            <p>Our $WEINER token is launching soon. Click the desktop icons to learn more about our revolutionary approach to fake VC.</p>
+            <div style="text-align: center; margin-top: 20px;">
+                <button class="win98-button">Buy $WEINER</button>
+                <button class="win98-button">Join Community</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="window" id="about">
+        <div class="window-header">
+            <div>About Weiner Perkins</div>
+            <div class="window-buttons">
+                <div class="window-button minimize">_</div>
+                <div class="window-button maximize">□</div>
+                <div class="window-button close">X</div>
+            </div>
+        </div>
+        <div class="window-content about-content">
+            <h3>About Weiner Perkins</h3>
+            <p>Founded in 2025, Weiner Perkins is a satirical take on venture capital firms that perfectly captures the absurdity of the crypto memecoin space.</p>
+            <p>Our mission is simple: create the most ridiculous yet oddly compelling memecoin the world has ever seen.</p>
+            <h3>Our Investment Thesis</h3>
+            <p>At Weiner Perkins, we invest exclusively in:</p>
+            <ul>
+                <li>Projects with no real utility</li>
+                <li>Tokens with funny names</li>
+                <li>Anything with a dog mascot</li>
+                <li>Web3 ideas so bad they circle back to good</li>
+            </ul>
+            <p>We're proudly backing projects that traditional VCs like Kleiner Perkins would run from screaming.</p>
+        </div>
+    </div>
+
+    <div class="window" id="token">
+        <div class="window-header">
+            <div>$WEINER Token Info</div>
+            <div class="window-buttons">
+                <div class="window-button minimize">_</div>
+                <div class="window-button maximize">□</div>
+                <div class="window-button close">X</div>
+            </div>
+        </div>
+        <div class="window-content token-content">
+            <h3>$WEINER Tokenomics</h3>
+            <p>The $WEINER token is the cornerstone of our fake financial ecosystem:</p>
+            <ul>
+                <li>Total Supply: 69,420,000,000 $WEINER</li>
+                <li>Initial Price: Whatever you're willing to pay</li>
+                <li>Liquidity: As liquid as a hot dog at a summer BBQ</li>
+                <li>Utility: None whatsoever</li>
+            </ul>
+            <h3>Token Distribution</h3>
+            <ul>
+                <li>69% - Public sale</li>
+                <li>20% - Team (locked for 5 minutes)</li>
+                <li>10% - Marketing (memes and more memes)</li>
+                <li>1% - Actual development</li>
+            </ul>
+            <p>Remember: $WEINER is not a financial investment. It's a joke with a blockchain address.</p>
+        </div>
+    </div>
+
+    <div class="window" id="team">
+        <div class="window-header">
+            <div>Weiner Perkins Team</div>
+            <div class="window-buttons">
+                <div class="window-button minimize">_</div>
+                <div class="window-button maximize">□</div>
+                <div class="window-button close">X</div>
+            </div>
+        </div>
+        <div class="window-content team-content">
+            <h3>Our Distinguished Team</h3>
+            <p>Meet the brilliant minds behind Weiner Perkins:</p>
+            <ul>
+                <li><strong>Frank Weiner</strong> - Chief Meme Officer (CMO)</li>
+                <li><strong>Hotdog Capital</strong> - Our AI-powered investor bot</li>
+                <li><strong>Satoshi Nakasausage</strong> - Anonymous founder</li>
+                <li><strong>Vitalik Butwiener</strong> - Smart contract developer</li>
+            </ul>
+            <p>Our team combines decades of experience in making jokes on the internet with absolutely no experience in venture capital.</p>
+            <h3>Advisors</h3>
+            <p>We're advised by a network of Twitter accounts with animal profile pictures and "not financial advice" in their bios.</p>
+        </div>
+    </div>
+
+    <div class="window" id="roadmap">
+        <div class="window-header">
+            <div>Weiner Perkins Roadmap</div>
+            <div class="window-buttons">
+                <div class="window-button minimize">_</div>
+                <div class="window-button maximize">□</div>
+                <div class="window-button close">X</div>
+            </div>
+        </div>
+        <div class="window-content roadmap-content">
+            <h3>Strategic Roadmap</h3>
+            <p><strong>Phase 1: Launch (Q2 2025)</strong></p>
+            <ul>
+                <li>Create this Windows 98 website</li>
+                <li>Launch $WEINER token</li>
+                <li>Get listed on CoinGecko (maybe)</li>
+                <li>First meme competition</li>
+            </ul>
+            <p><strong>Phase 2: Growth (Q3 2025)</strong></p>
+            <ul>
+                <li>Reach 10,000 holders</li>
+                <li>Launch Weiner Perkins Incubator for other joke tokens</li>
+                <li>Announce partnerships with other memecoins</li>
+                <li>Release "Why We Passed" blog about legitimate projects</li>
+            </ul>
+            <p><strong>Phase 3: Exit (Q4 2025)</strong></p>
+            <ul>
+                <li>Rug pull (just kidding!)</li>
+                <li>Launch Weiner DAO to govern absolutely nothing</li>
+                <li>Virtual office in some metaverse nobody uses</li>
+                <li>Become a real VC firm through the power of irony</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="window" id="contact">
+        <div class="window-header">
+            <div>Contact Weiner Perkins</div>
+            <div class="window-buttons">
+                <div class="window-button minimize">_</div>
+                <div class="window-button maximize">□</div>
+                <div class="window-button close">X</div>
+            </div>
+        </div>
+        <div class="window-content">
+            <h3>Get in Touch</h3>
+            <p>Have a ridiculous token idea? Want to join our fake portfolio?</p>
+            <p>You can reach us at:</p>
+            <ul>
+                <li>Twitter: @WeinerPerkinsVC (not real yet)</li>
+                <li>Discord: WeinerPerkins (coming soon)</li>
+                <li>Telegram: t.me/WeinerPerkins (also coming soon)</li>
+            </ul>
+            <p>For serious inquiries only (just kidding, we don't take anything seriously)</p>
+        </div>
+    </div>
+
+    <!-- Taskbar -->
+    <div class="taskbar">
+        <div class="start-button" id="start-button">
+            <img src="/api/placeholder/16/16" alt="Start">
+            Start
+        </div>
+        <div class="taskbar-time" id="taskbar-time">4:20 PM</div>
+    </div>
+
+    <!-- Start Menu -->
+    <div class="start-menu" id="start-menu">
+        <div class="start-menu-header">Weiner Perkins</div>
+        <div class="start-menu-items">
+            <div class="start-menu-item" data-window="ai-assistant">
+                <img src="/api/placeholder/24/24" alt="Weiner AI">
+                Weiner AI
+            </div>
+            <div class="start-menu-item" data-window="my-computer">
+                <img src="/api/placeholder/24/24" alt="My Computer">
+                My Computer
+            </div>
+            <div class="start-menu-item" data-window="token">
+                <img src="/api/placeholder/24/24" alt="Token Info">
+                $WEINER Token
+            </div>
+            <div class="start-menu-item" data-window="team">
+                <img src="/api/placeholder/24/24" alt="Team">
+                Our Team
+            </div>
+            <div class="start-menu-item" data-window="roadmap">
+                <img src="/api/placeholder/24/24" alt="Roadmap">
+                Roadmap
+            </div>
+            <div class="start-menu-item" data-window="contact">
+                <img src="/api/placeholder/24/24" alt="Contact">
+                Contact
+            </div>
+        </div>
+    </div>
+
+    <!-- AI Assistant Window -->
     <div class="window active" id="ai-assistant" style="width: 800px; height: 600px; top: 50px; left: 100px; z-index: 200;">
         <div class="window-header">
             <div>Weiner AI Assistant</div>
