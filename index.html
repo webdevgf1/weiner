@@ -935,43 +935,42 @@
         }
         
         // Function to play voice using Eleven Labs API
-        async function playVoice(text) {
-            try {
-                console.log("Calling voice API with text:", text.substring(0, 50) + "...");
-                
-                // Call to your backend API that handles Eleven Labs voice synthesis
-                const response = await fetch('/api/voice', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify({ text })
-                });
-                
-                console.log("Voice API Response Status:", response.status);
-                
-                if (!response.ok) {
-                    const errorText = await response.text();
-                    console.error("Voice API Error:", errorText);
-                    throw new Error(`Failed to get voice response: ${response.status} ${errorText}`);
-                }
-                
-                // The response should be an audio blob
-                const audioBlob = await response.blob();
-                console.log("Received audio blob:", audioBlob.type, audioBlob.size);
-                
-                const audioUrl = URL.createObjectURL(audioBlob);
-                
-                // Create and play audio
-                const audio = new Audio(audioUrl);
-                audio.oncanplaythrough = () => console.log("Audio loaded and ready to play");
-                audio.onplay = () => console.log("Audio playback started");
-                audio.onerror = (e) => console.error("Audio playback error:", e);
-                audio.play().catch(e => console.error("Failed to play audio:", e));
-            } catch (error) {
-                console.error('Error playing voice:', error);
-            }
-        }
+        // Function to play voice using Eleven Labs API
+async function playVoice(text) {
+  try {
+    console.log("Calling voice API with text:", text.substring(0, 50) + "...");
+    
+    // Call to your backend API that handles Eleven Labs voice synthesis
+    const response = await fetch('/api/voice', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ text })
+    });
+    
+    // Check if logging shows this function is being called
+    console.log("Voice API Response Status:", response.status);
+    
+    if (!response.ok) {
+      const errorText = await response.text();
+      console.error("Voice API Error:", errorText);
+      throw new Error(`Failed to get voice response: ${response.status} ${errorText}`);
+    }
+    
+    // The response should be an audio blob
+    const audioBlob = await response.blob();
+    console.log("Received audio blob:", audioBlob.type, audioBlob.size);
+    
+    const audioUrl = URL.createObjectURL(audioBlob);
+    
+    // Create and play audio
+    const audio = new Audio(audioUrl);
+    audio.play().catch(e => console.error("Failed to play audio:", e));
+  } catch (error) {
+    console.error('Error playing voice:', error);
+  }
+}
         // Add test button functionality
         document.addEventListener('DOMContentLoaded', function() {
             // This might execute too early, so we also add it when the AI window is opened
