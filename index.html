@@ -554,9 +554,6 @@
                     <canvas id="model-canvas" style="width: 100%; height: 100%;"></canvas>
                     <div style="position: absolute; bottom: 15px; left: 0; width: 100%; text-align: center;">
                         <div style="color: white; font-size: 18px; font-weight: bold; margin-bottom: 10px;">JACK WEINERSTEIN</div>
-                        <div style="color: white; font-size: 14px; padding: 8px 15px;">
-    <img src="/api/placeholder/16/16" alt="Sound" style="vertical-align: middle; margin-right: 8px;"> Voice: Always ON
-</div>
                     </div>
                 </div>
             </div>
@@ -586,8 +583,6 @@
                         <div style="margin-left: auto;">Speak with the VC genius behind $WEINER</div>
                     </div>
                     <div style="margin-top: 10px; text-align: center;">
-                        <button id="test-voice-button" class="win98-button" style="font-size: 12px;">Test Voice</button>
-                        <div id="api-test-result" style="font-size: 11px; margin-top: 5px; height: 20px;"></div>
                     </div>
                 </div>
             </div>
@@ -975,11 +970,6 @@
             }
         }
         
-        // Test Voice Button
-        document.getElementById('test-voice-button').addEventListener('click', function() {
-            console.log("Test voice button clicked");
-            playVoice("This is a test of the voice system. If you can hear this, the voice functionality is working correctly.");
-        });
         // Add test function to check API routes
         async function testApiRoutes() {
             try {
@@ -1009,12 +999,8 @@
                     testApiRoutes().then(result => {
                         if (result) {
                             console.log("API routes are working. Environment variables:", result.env);
-                            document.getElementById('api-test-result').textContent = "✓ APIs connected";
-                            document.getElementById('api-test-result').style.color = "green";
                         } else {
                             console.error("API routes test failed. Check Vercel logs.");
-                            document.getElementById('api-test-result').textContent = "✗ API connection failed";
-                            document.getElementById('api-test-result').style.color = "red";
                             
                             // Add a message to the chat to indicate API issues
                             addMessage("System:", "Warning: Unable to connect to AI services. You might see canned responses until this is fixed. Please check browser console for details.", false);
