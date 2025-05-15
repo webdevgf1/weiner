@@ -1654,6 +1654,74 @@ document.querySelectorAll('.window').forEach(window => {
                 }, 2000);
             });
         });
+
+        // Function to center a window on the screen
+function centerWindow(windowElement) {
+    // Get screen dimensions
+    const screenWidth = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
+    const screenHeight = window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight;
+    
+    // Get window dimensions
+    const windowWidth = parseInt(windowElement.style.width) || 800; // Default width if not set
+    const windowHeight = parseInt(windowElement.style.height) || 600; // Default height if not set
+    
+    // Calculate center position
+    const leftPosition = Math.max(0, (screenWidth - windowWidth) / 2);
+    const topPosition = Math.max(0, (screenHeight - windowHeight) / 2);
+    
+    // Apply position
+    windowElement.style.left = leftPosition + "px";
+    windowElement.style.top = topPosition + "px";
+}
+
+// Apply centering to all windows when they're opened
+document.querySelectorAll('.icon, .start-menu-item').forEach(item => {
+    item.addEventListener('click', function() {
+        // This code runs in addition to your existing click handlers
+        const windowId = this.getAttribute('data-window');
+        const targetWindow = document.getElementById(windowId);
+        
+        if (targetWindow) {
+            // Set default sizes if not already set
+            if (!targetWindow.style.width) {
+                if (windowId === 'roadmap') {
+                    targetWindow.style.width = "1050px";
+                    targetWindow.style.height = "1080px";
+                } else if (windowId === 'ai-assistant') {
+                    targetWindow.style.width = "1200px";
+                    targetWindow.style.height = "800px";
+                } else if (windowId === 'token') {
+                    targetWindow.style.width = "800px";
+                    targetWindow.style.height = "700px";
+                } else if (windowId === 'my-computer') {
+                    targetWindow.style.width = "900px";
+                    targetWindow.style.height = "700px";
+                } else {
+                    targetWindow.style.width = "600px";
+                    targetWindow.style.height = "500px";
+                }
+            }
+            
+            // Center the window
+            centerWindow(targetWindow);
+        }
+    });
+});
+
+// Also center windows on window resize
+window.addEventListener('resize', function() {
+    // Only center the active window
+    const activeWindow = document.querySelector('.window.active');
+    if (activeWindow) {
+        centerWindow(activeWindow);
+    }
+});
+
+// Initial centering for any open windows
+document.addEventListener('DOMContentLoaded', function() {
+    const activeWindows = document.querySelectorAll('.window.active');
+    activeWindows.forEach(win => centerWindow(win));
+});
     </script>
 </body>
 </html>
