@@ -1,3 +1,4 @@
+// api/voice.js
 module.exports = async (req, res) => {
   // Set CORS headers
   res.setHeader('Access-Control-Allow-Credentials', true);
@@ -23,7 +24,8 @@ module.exports = async (req, res) => {
       return res.status(400).json({ error: 'Text is required' });
     }
     
-    // Get voice ID from environment variables or use a default one
+    // Use a free voice from Eleven Labs
+    // Antoni voice ID - male, free voice
     const voiceId = process.env.ELEVENLABS_VOICE_ID || 'ErXwobaYiN019PkySvjV';
     
     console.log('Processing voice request for text:', text.substring(0, 30) + '...');
@@ -39,7 +41,7 @@ module.exports = async (req, res) => {
       },
       body: JSON.stringify({
         text: text,
-        model_id: 'eleven_monolingual_v1',
+        model_id: 'eleven_multilingual_v2', // Using the multilingual model which is available on free tier
         voice_settings: {
           stability: 0.5,
           similarity_boost: 0.75
