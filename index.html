@@ -1011,20 +1011,31 @@
             });
         });
         
-        // Open window by default (AI Assistant)
-        setTimeout(() => {
-            document.getElementById('ai-assistant').classList.add('active');
-            document.getElementById('ai-assistant').style.zIndex = "101";
-            
-            // Focus on the chat input
-            document.getElementById('user-input').focus();
-            
-            // Initialize 3D model
-            initModel();
-            
-            // Test API endpoints
-            testApiRoutes();
-        }, 500);
+       // Open window by default (AI Assistant)
+setTimeout(() => {
+    const aiWindow = document.getElementById('ai-assistant');
+    aiWindow.classList.add('active');
+    aiWindow.style.zIndex = "101";
+    
+    // Center the window
+    const screenWidth = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
+    const screenHeight = window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight;
+    
+    const leftPosition = Math.max(0, (screenWidth - 1200) / 2);
+    const topPosition = Math.max(0, (screenHeight - 800) / 2);
+    
+    aiWindow.style.left = leftPosition + "px";
+    aiWindow.style.top = topPosition + "px";
+    
+    // Focus on the chat input
+    document.getElementById('user-input').focus();
+    
+    // Initialize 3D model
+    initModel();
+    
+    // Test API endpoints
+    testApiRoutes();
+}, 500);
         
         // Start Menu Toggle
         document.getElementById('start-button').addEventListener('click', function() {
@@ -1057,15 +1068,26 @@
                 targetWindow.style.zIndex = "101";
                 
                 // Special handling for AI Assistant window
-                if (windowId === 'ai-assistant') {
-                    targetWindow.style.width = "1200px";
-                    targetWindow.style.height = "800px";
-                    
-                    // Focus on the chat input
-                    setTimeout(() => {
-                        document.getElementById('user-input').focus();
-                    }, 100);
-                }
+               // Special handling for AI Assistant window
+if (windowId === 'ai-assistant') {
+    targetWindow.style.width = "1200px";
+    targetWindow.style.height = "800px";
+    
+    // Center the window
+    const screenWidth = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
+    const screenHeight = window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight;
+    
+    const leftPosition = Math.max(0, (screenWidth - 1200) / 2);
+    const topPosition = Math.max(0, (screenHeight - 800) / 2);
+    
+    targetWindow.style.left = leftPosition + "px";
+    targetWindow.style.top = topPosition + "px";
+    
+    // Focus on the chat input
+    setTimeout(() => {
+        document.getElementById('user-input').focus();
+    }, 100);
+}
             });
         });
 
@@ -1100,23 +1122,31 @@
         });
 
         // Make windows draggable
-        document.querySelectorAll('.window').forEach(window => {
-            makeWindowDraggable(window);
-            
-            // Initial positioning for windows
-            if (window.id !== 'ai-assistant') {
-                window.style.top = (Math.random() * 100 + 50) + "px";
-                window.style.left = (Math.random() * 100 + 50) + "px";
-                window.style.width = "500px";
-                window.style.height = "400px";
-            } else {
-                // Special sizing for AI Assistant
-                window.style.top = "20px";
-                window.style.left = "50px";
-                window.style.width = "1200px";
-                window.style.height = "800px";
-            }
-        });
+document.querySelectorAll('.window').forEach(window => {
+    makeWindowDraggable(window);
+    
+    // Initial positioning for windows
+    if (window.id !== 'ai-assistant') {
+        window.style.top = (Math.random() * 100 + 50) + "px";
+        window.style.left = (Math.random() * 100 + 50) + "px";
+        window.style.width = "500px";
+        window.style.height = "400px";
+    } else {
+        // Special sizing for AI Assistant - CENTERED
+        window.style.width = "1200px";
+        window.style.height = "800px";
+        
+        // Center the window
+        const screenWidth = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
+        const screenHeight = window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight;
+        
+        const leftPosition = Math.max(0, (screenWidth - 1200) / 2);
+        const topPosition = Math.max(0, (screenHeight - 800) / 2);
+        
+        window.style.left = leftPosition + "px";
+        window.style.top = topPosition + "px";
+    }
+});
         
         function makeWindowDraggable(window) {
             let pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
