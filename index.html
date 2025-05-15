@@ -14,11 +14,14 @@
         }
 
         body {
-            background-color: #008080; /* Classic Windows 98 teal */
-            overflow: hidden;
-            height: 100vh;
-            user-select: none;
-        }
+    background-image: url('https://cdn.prod.website-files.com/6740d85c4e3daeef29a89470/68266158f0f51afe19ee33de_background.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    overflow: hidden;
+    height: 100vh;
+    user-select: none;
+}
 
         /* Taskbar Styles */
         .taskbar {
@@ -669,7 +672,12 @@
             
             // Scene setup
             modelScene = new THREE.Scene();
-            modelScene.background = new THREE.Color(0x000080); // Windows 98 blue
+
+// Use a background image instead of color
+const backgroundLoader = new THREE.TextureLoader();
+backgroundLoader.load('https://cdn.prod.website-files.com/6740d85c4e3daeef29a89470/682661a7e0be9e75079471f8_52345234321432.png', function(texture) {
+    modelScene.background = texture;
+});
             
             // Camera setup
             const width = container.clientWidth;
