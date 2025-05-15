@@ -1,3 +1,4 @@
+// api/chat.js
 module.exports = async (req, res) => {
   // Set CORS headers
   res.setHeader('Access-Control-Allow-Credentials', true);
@@ -19,7 +20,7 @@ module.exports = async (req, res) => {
   try {
     const { message, context } = req.body;
     
-    // Create a system prompt for Weiner AI's personality
+    // Create a system prompt for Jack Weinerstein's personality
     const systemPrompt = context || `You are Jack Weinerstein, the sleazy founder and CEO of Weiner Perkins, a satirical fake venture capital firm focused on memecoins. 
 
 EXTREMELY IMPORTANT RULES FOR ALL RESPONSES:
