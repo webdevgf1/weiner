@@ -477,29 +477,68 @@
 </div>
 
     <div class="window" id="about">
-        <div class="window-header">
-            <div>About Weiner Perkins</div>
-            <div class="window-buttons">
-                <div class="window-button minimize">_</div>
-                <div class="window-button maximize">□</div>
-                <div class="window-button close">X</div>
-            </div>
-        </div>
-        <div class="window-content about-content">
-            <h3>About Weiner Perkins</h3>
-            <p>Founded in 2025, Weiner Perkins is a satirical take on venture capital firms that perfectly captures the absurdity of the crypto memecoin space.</p>
-            <p>Our mission is simple: create the most ridiculous yet oddly compelling memecoin the world has ever seen.</p>
-            <h3>Our Investment Thesis</h3>
-            <p>At Weiner Perkins, we invest exclusively in:</p>
-            <ul>
-                <li>Projects with no real utility</li>
-                <li>Tokens with funny names</li>
-                <li>Anything with a dog mascot</li>
-                <li>Web3 ideas so bad they circle back to good</li>
-            </ul>
-            <p>We're proudly backing projects that traditional VCs like Kleiner Perkins would run from screaming.</p>
+    <div class="window-header">
+        <div>About Weiner Perkins</div>
+        <div class="window-buttons">
+            <div class="window-button minimize">_</div>
+            <div class="window-button maximize">□</div>
+            <div class="window-button close">X</div>
         </div>
     </div>
+    <div class="window-content" style="padding: 0; display: flex; flex-direction: column; height: 550px; background-color: #f0f0f0;">
+        <!-- Windows 98 style media player header -->
+        <div style="background: linear-gradient(to right, #000080, #1084d0); padding: 8px 15px; display: flex; align-items: center;">
+            <img src="https://cdn.prod.website-files.com/6740d85c4e3daeef29a89470/68266158c9ce5166b2944a73_weiner.png" 
+                 alt="Weiner Perkins Logo" 
+                 style="height: 30px; margin-right: 15px;">
+            <div style="color: white; font-weight: bold; font-size: 16px;">Weiner Perkins Media Player</div>
+        </div>
+        
+        <!-- Video container -->
+        <div style="flex: 1; background-color: black; display: flex; justify-content: center; align-items: center; position: relative;">
+            <!-- This is where your Cloudinary video will go -->
+            <div id="video-placeholder" style="width: 100%; height: 100%; display: flex; justify-content: center; align-items: center;">
+                <div style="color: #c0c0c0; text-align: center;">
+                    <div style="margin-bottom: 15px;">Video Player Ready</div>
+                    <div style="font-size: 12px;">Your Cloudinary video will appear here</div>
+                </div>
+            </div>
+            
+            <!-- Actual video element - initially hidden, replace the src with your Cloudinary URL -->
+            <video id="about-video" controls style="width: 100%; height: 100%; display: none;">
+                <source src="YOUR_CLOUDINARY_VIDEO_URL_HERE" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+        </div>
+        
+        <!-- Video controls panel in Windows 98 style -->
+        <div style="background-color: #c0c0c0; padding: 10px; border-top: 1px solid #808080;">
+            <div style="display: flex; align-items: center; justify-content: center; margin-bottom: 10px;">
+                <button class="win98-button" id="video-play-button" style="width: 80px; margin: 0 5px;">Play</button>
+                <button class="win98-button" id="video-pause-button" style="width: 80px; margin: 0 5px;">Pause</button>
+                <button class="win98-button" id="video-stop-button" style="width: 80px; margin: 0 5px;">Stop</button>
+                <button class="win98-button" id="video-fullscreen-button" style="width: 80px; margin: 0 5px;">Full Screen</button>
+            </div>
+            
+            <!-- Progress bar -->
+            <div style="display: flex; align-items: center;">
+                <div style="margin-right: 10px; font-size: 12px; width: 45px;" id="video-current-time">00:00</div>
+                <div style="flex: 1; height: 20px; background-color: white; border: 1px inset #808080; position: relative;">
+                    <div id="video-progress" style="width: 0%; height: 100%; background-color: #000080;"></div>
+                </div>
+                <div style="margin-left: 10px; font-size: 12px; width: 45px;" id="video-duration">00:00</div>
+            </div>
+        </div>
+        
+        <!-- Video description -->
+        <div style="padding: 15px; background-color: #f0f0f0; border-top: 1px solid #d0d0d0;">
+            <div style="font-weight: bold; color: #000080; margin-bottom: 5px;">About Weiner Perkins</div>
+            <div style="font-size: 12px; line-height: 1.4;">
+                This video explains our revolutionary approach to venture capital and how we're disrupting the industry with our innovative $WEINER token.
+            </div>
+        </div>
+    </div>
+</div>
 
     <div class="window" id="token">
         <div class="window-header">
@@ -1333,6 +1372,110 @@ document.querySelectorAll('.window').forEach(window => {
                 win.style.zIndex = "10";
             });
             this.style.zIndex = "101";
+        });
+
+        // Add video player functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            // Set up video player functionality when the page loads
+            setupVideoPlayer();
+        });
+
+        function setupVideoPlayer() {
+            const video = document.getElementById('about-video');
+            if (!video) return; // Exit if video element doesn't exist yet
+            
+            const placeholder = document.getElementById('video-placeholder');
+            const playButton = document.getElementById('video-play-button');
+            const pauseButton = document.getElementById('video-pause-button');
+            const stopButton = document.getElementById('video-stop-button');
+            const fullscreenButton = document.getElementById('video-fullscreen-button');
+            const progress = document.getElementById('video-progress');
+            const currentTime = document.getElementById('video-current-time');
+            const duration = document.getElementById('video-duration');
+            
+            // Replace placeholder with actual video
+            if (video.src && video.src.indexOf('YOUR_CLOUDINARY_VIDEO_URL_HERE') === -1) {
+                placeholder.style.display = 'none';
+                video.style.display = 'block';
+            }
+            
+            // Play button
+            if (playButton) {
+                playButton.addEventListener('click', function() {
+                    if (video.src && video.src.indexOf('YOUR_CLOUDINARY_VIDEO_URL_HERE') === -1) {
+                        video.play();
+                    }
+                });
+            }
+            
+            // Pause button
+            if (pauseButton) {
+                pauseButton.addEventListener('click', function() {
+                    if (video.src) {
+                        video.pause();
+                    }
+                });
+            }
+            
+            // Stop button
+            if (stopButton) {
+                stopButton.addEventListener('click', function() {
+                    if (video.src) {
+                        video.pause();
+                        video.currentTime = 0;
+                    }
+                });
+            }
+            
+            // Fullscreen button
+            if (fullscreenButton) {
+                fullscreenButton.addEventListener('click', function() {
+                    if (video.src) {
+                        if (video.requestFullscreen) {
+                            video.requestFullscreen();
+                        } else if (video.webkitRequestFullscreen) {
+                            video.webkitRequestFullscreen();
+                        } else if (video.msRequestFullscreen) {
+                            video.msRequestFullscreen();
+                        }
+                    }
+                });
+            }
+            
+            // Update progress bar and time display
+            video.addEventListener('timeupdate', function() {
+                // Update progress bar
+                const value = (video.currentTime / video.duration) * 100;
+                if (progress) progress.style.width = value + '%';
+                
+                // Update current time
+                if (currentTime) {
+                    const currentMinutes = Math.floor(video.currentTime / 60);
+                    const currentSeconds = Math.floor(video.currentTime % 60);
+                    currentTime.textContent = `${currentMinutes.toString().padStart(2, '0')}:${currentSeconds.toString().padStart(2, '0')}`;
+                }
+            });
+            
+            // Set duration when metadata is loaded
+            video.addEventListener('loadedmetadata', function() {
+                if (duration) {
+                    const durationMinutes = Math.floor(video.duration / 60);
+                    const durationSeconds = Math.floor(video.duration % 60);
+                    duration.textContent = `${durationMinutes.toString().padStart(2, '0')}:${durationSeconds.toString().padStart(2, '0')}`;
+                }
+                
+                // Show video and hide placeholder
+                if (placeholder) placeholder.style.display = 'none';
+                video.style.display = 'block';
+            });
+        }
+
+        // Setup video when about window is opened
+        document.querySelectorAll('.icon[data-window="about"], .start-menu-item[data-window="about"]').forEach(item => {
+            item.addEventListener('click', function() {
+                // Set a timeout to ensure the window is open before setting up the video
+                setTimeout(setupVideoPlayer, 100);
+            });
         });
     </script>
 </body>
