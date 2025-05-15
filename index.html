@@ -350,6 +350,12 @@
             border-right: 2px solid #ffffff;
             border-bottom: 2px solid #ffffff;
         }
+
+        @keyframes blink {
+    0% { opacity: 0; }
+    50% { opacity: 1; }
+    100% { opacity: 0; }
+}
     </style>
 </head>
 <body>
@@ -790,26 +796,76 @@
 </div>
 
     <div class="window" id="contact">
-        <div class="window-header">
-            <div>Contact Weiner Perkins</div>
-            <div class="window-buttons">
-                <div class="window-button minimize">_</div>
-                <div class="window-button maximize">□</div>
-                <div class="window-button close">X</div>
-            </div>
-        </div>
-        <div class="window-content">
-            <h3>Get in Touch</h3>
-            <p>Have a ridiculous token idea? Want to join our fake portfolio?</p>
-            <p>You can reach us at:</p>
-            <ul>
-                <li>Twitter: @WeinerPerkinsVC (not real yet)</li>
-                <li>Discord: WeinerPerkins (coming soon)</li>
-                <li>Telegram: t.me/WeinerPerkins (also coming soon)</li>
-            </ul>
-            <p>For serious inquiries only (just kidding, we don't take anything seriously)</p>
+    <div class="window-header">
+        <div>Contact Weiner Perkins</div>
+        <div class="window-buttons">
+            <div class="window-button minimize">_</div>
+            <div class="window-button maximize">□</div>
+            <div class="window-button close">X</div>
         </div>
     </div>
+    <div class="window-content" style="padding: 0; display: flex; flex-direction: column; background-color: #f0f0f0; height: 100%; overflow: hidden;">
+        <!-- Windows 98 style phone dialer header -->
+        <div style="background: linear-gradient(to right, #000080, #1084d0); padding: 8px 15px; display: flex; align-items: center;">
+            <img src="/api/placeholder/24/24" alt="Phone Icon" style="margin-right: 10px;">
+            <div style="color: white; font-weight: bold; font-size: 16px;">Weiner Perkins Phone Dialer</div>
+        </div>
+        
+        <!-- Phone interface -->
+        <div style="flex: 1; padding: 20px; display: flex; flex-direction: column;">
+            <!-- Status display -->
+            <div style="background-color: #c0c0c0; border: 2px inset #808080; padding: 10px; margin-bottom: 20px; font-family: 'Courier New', monospace;">
+                <div style="color: #800000; font-weight: bold;">STATUS:</div>
+                <div style="color: #000080; margin-top: 5px;">LINE 1: IN USE - CONNECTING TO TWITTER...</div>
+                <div style="color: #008000; margin-top: 5px; animation: blink 1s infinite;">●</div>
+            </div>
+            
+            <!-- Message -->
+            <div style="background-color: white; border: 1px solid #d0d0d0; padding: 15px; margin-bottom: 20px; flex: 1;">
+                <div style="font-weight: bold; color: #000080; margin-bottom: 10px; font-size: 16px;">Message from Jack Weinerstein:</div>
+                <div style="font-family: 'Comic Sans MS', sans-serif; line-height: 1.5; font-size: 14px;">
+                    <p>"I'm currently on a very important conference call with some <span style="text-decoration: line-through;">made up</span> high-profile investors discussing our revolutionary <span style="text-decoration: line-through;">scam</span> business model.</p>
+                    
+                    <p>I or one of my many assistants (note: we don't actually have any assistants) will get back to you as soon as we finish pumping our token <span style="font-size: 10px;">(which might be never)</span>."</p>
+                    
+                    <p style="font-style: italic; margin-top: 15px;">PS: Our secretary Jen is out today because she still hasn't finished the roadmap section.</p>
+                </div>
+            </div>
+            
+            <!-- Twitter connect -->
+            <div style="background-color: #e8f4f8; border: 1px solid #a0c0d0; padding: 15px; text-align: center;">
+                <div style="font-weight: bold; margin-bottom: 10px;">The fastest way to reach us:</div>
+                <a href="https://twitter.com/weinerperkins" target="_blank" style="text-decoration: none;">
+                    <button class="win98-button" style="padding: 8px 15px; display: flex; align-items: center; margin: 0 auto;">
+                        <img src="/api/placeholder/16/16" alt="Twitter" style="margin-right: 8px;"> 
+                        <span style="font-weight: bold; color: #000080;">Follow @WeinerPerkins on Twitter</span>
+                    </button>
+                </a>
+                <div style="margin-top: 10px; font-size: 11px; color: #808080;">
+                    (We might respond, but probably not)
+                </div>
+            </div>
+        </div>
+        
+        <!-- Fake phone keypad -->
+        <div style="background-color: #c0c0c0; border-top: 1px solid #808080; padding: 10px; display: flex; justify-content: center;">
+            <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 5px; width: 180px;">
+                <button class="win98-button" style="width: 50px; height: 40px;">1</button>
+                <button class="win98-button" style="width: 50px; height: 40px;">2</button>
+                <button class="win98-button" style="width: 50px; height: 40px;">3</button>
+                <button class="win98-button" style="width: 50px; height: 40px;">4</button>
+                <button class="win98-button" style="width: 50px; height: 40px;">5</button>
+                <button class="win98-button" style="width: 50px; height: 40px;">6</button>
+                <button class="win98-button" style="width: 50px; height: 40px;">7</button>
+                <button class="win98-button" style="width: 50px; height: 40px;">8</button>
+                <button class="win98-button" style="width: 50px; height: 40px;">9</button>
+                <button class="win98-button" style="width: 50px; height: 40px;">*</button>
+                <button class="win98-button" style="width: 50px; height: 40px;">0</button>
+                <button class="win98-button" style="width: 50px; height: 40px;">#</button>
+            </div>
+        </div>
+    </div>
+</div>
 
     <!-- AI Assistant Window -->
     <div class="window active" id="ai-assistant" style="width: 1200px; height: 800px; top: 20px; left: 50px; z-index: 200;">
@@ -1775,6 +1831,27 @@ document.querySelectorAll('.icon[data-window="token"], .start-menu-item[data-win
             tokenHeader.style.width = "100%";
             tokenHeader.style.boxSizing = "border-box";
         }
+    });
+});
+
+// Set Contact window size and position
+document.querySelectorAll('.icon[data-window="contact"], .start-menu-item[data-window="contact"]').forEach(item => {
+    item.addEventListener('click', function() {
+        const contactWindow = document.getElementById('contact');
+        
+        // Set dimensions
+        contactWindow.style.width = "500px";
+        contactWindow.style.height = "550px";
+        
+        // Center on screen
+        const screenWidth = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
+        const screenHeight = window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight;
+        
+        const leftPosition = Math.max(0, (screenWidth - 500) / 2);
+        const topPosition = Math.max(0, (screenHeight - 550) / 2);
+        
+        contactWindow.style.left = leftPosition + "px";
+        contactWindow.style.top = topPosition + "px";
     });
 });
     </script>
