@@ -26,7 +26,7 @@ module.exports = async (req, res) => {
     
     // Use a free voice from Eleven Labs
     // Antoni voice ID - male, free voice
-    const voiceId = process.env.ELEVENLABS_VOICE_ID || 'ErXwobaYiN019PkySvjV';
+    const voiceId = process.env.ELEVENLABS_VOICE_ID || '1t1EeRixsJrKbiF1zwM6';
     
     console.log('Processing voice request for text:', text.substring(0, 30) + '...');
     console.log('Using voice ID:', voiceId);
