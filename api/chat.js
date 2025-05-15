@@ -1,5 +1,5 @@
 // /api/chat.js - Handles communication with Anthropic's Claude API
-import Anthropic from '@anthropic/sdk';
+import Anthropic from 'anthropic';
 
 export default async function handler(req, res) {
   // Only allow POST requests
