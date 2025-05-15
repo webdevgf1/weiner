@@ -24,7 +24,7 @@ module.exports = async (req, res) => {
     }
     
     // Get voice ID from environment variables or use a default one
-    const voiceId = process.env.ELEVENLABS_VOICE_ID || '21m00Tcm4TlvDq8ikWAM';
+    const voiceId = process.env.ELEVENLABS_VOICE_ID || 'ErXwobaYiN019PkySvjV';
     
     console.log('Processing voice request for text:', text.substring(0, 30) + '...');
     console.log('Using voice ID:', voiceId);
