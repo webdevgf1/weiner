@@ -1,5 +1,4 @@
 // api/chat.js - Handles communication with Anthropic's Claude API
-import { Anthropic } from '@anthropic-ai/sdk';
 
 export default async function handler(req, res) {
   // Only allow POST requests
@@ -13,8 +12,11 @@ export default async function handler(req, res) {
     // Log that we received a request (will appear in Vercel logs)
     console.log("Received message:", message.substring(0, 50) + "...");
     
+    // Import Anthropic dynamically to avoid build errors
+    const { default: AnthropicAPI } = await import('anthropic');
+    
     // Initialize Anthropic client with your API key
-    const anthropic = new Anthropic({
+    const anthropic = new AnthropicAPI({
       apiKey: process.env.ANTHROPIC_API_KEY,
     });
 
