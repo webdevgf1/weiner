@@ -354,8 +354,8 @@
             <div class="icon-text">My Computer</div>
         </div>
         <div class="icon" data-window="ai-assistant">
-            <img src="/api/placeholder/32/32" alt="Weiner AI">
-            <div class="icon-text">Weiner AI</div>
+            <img src="/api/placeholder/32/32" alt="Jack Weinerstein">
+            <div class="icon-text">Jack Weinerstein</div>
         </div>
         <div class="icon" data-window="about">
             <img src="/api/placeholder/32/32" alt="About">
@@ -378,7 +378,6 @@
             <div class="icon-text">Contact</div>
         </div>
     </div>
-
     <!-- Windows -->
     <div class="window" id="my-computer">
         <div class="window-header">
@@ -470,7 +469,7 @@
             <h3>Our Distinguished Team</h3>
             <p>Meet the brilliant minds behind Weiner Perkins:</p>
             <ul>
-                <li><strong>Frank Weiner</strong> - Chief Meme Officer (CMO)</li>
+                <li><strong>Jack Weinerstein</strong> - Founder and Chief Meme Officer (CMO)</li>
                 <li><strong>Hotdog Capital</strong> - Our AI-powered investor bot</li>
                 <li><strong>Satoshi Nakasausage</strong> - Anonymous founder</li>
                 <li><strong>Vitalik Butwiener</strong> - Smart contract developer</li>
@@ -538,6 +537,62 @@
         </div>
     </div>
 
+    <!-- AI Assistant Window -->
+    <div class="window active" id="ai-assistant" style="width: 1200px; height: 800px; top: 20px; left: 50px; z-index: 200;">
+        <div class="window-header">
+            <div>Jack Weinerstein - Weiner Perkins VC</div>
+            <div class="window-buttons">
+                <div class="window-button minimize">_</div>
+                <div class="window-button maximize">□</div>
+                <div class="window-button close">X</div>
+            </div>
+        </div>
+        <div class="window-content" style="padding: 0; display: flex; height: calc(100% - 21px);">
+            <!-- 3D Model Area -->
+            <div class="model-container" style="width: 550px; background-color: #000080; border-right: 2px solid #404040; position: relative;">
+                <div id="model-canvas-container" style="width: 100%; height: 100%; position: relative;">
+                    <canvas id="model-canvas" style="width: 100%; height: 100%;"></canvas>
+                    <div style="position: absolute; bottom: 15px; left: 0; width: 100%; text-align: center;">
+                        <div style="color: white; font-size: 18px; font-weight: bold; margin-bottom: 10px;">JACK WEINERSTEIN</div>
+                        <button class="win98-button" id="toggle-voice" style="font-size: 14px; padding: 8px 15px;">
+                            <img src="/api/placeholder/16/16" alt="Sound" style="vertical-align: middle; margin-right: 8px;"> Voice: OFF
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Chat Interface -->
+            <div class="chat-container" style="flex: 1; display: flex; flex-direction: column; height: 100%;">
+                <!-- Chat Messages -->
+                <div class="chat-messages" id="chat-messages" style="flex: 1; overflow-y: auto; padding: 20px; background-color: white; border: 1px inset #808080;">
+                    <div class="message ai-message" style="margin-bottom: 15px;">
+                        <div style="font-weight: bold; color: #000080; font-size: 16px; margin-bottom: 5px;">Jack Weinerstein:</div>
+                        <div style="background-color: #f0f0f0; padding: 15px; border: 1px solid #d0d0d0; border-radius: 5px; font-size: 16px; line-height: 1.4;">
+                            Hey there, potential investor! Jack Weinerstein here, founder of Weiner Perkins. Looking for the next 1000x moonshot opportunity? You've come to the right place. What kind of revolutionary, disruptive, absolutely ridiculous crypto project can I interest you in today?
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Chat Input -->
+                <div class="chat-input" style="padding: 15px; background-color: #c0c0c0; border-top: 1px solid #808080;">
+                    <div style="display: flex;">
+                        <input type="text" id="user-input" 
+                               style="flex: 1; padding: 8px; font-family: 'MS Sans Serif'; font-size: 14px; border: 1px inset #808080;" 
+                               placeholder="Ask Jack Weinerstein something...">
+                        <button class="win98-button" id="send-button" style="margin-left: 8px; padding: 5px 15px; font-size: 14px;">Send</button>
+                    </div>
+                    <div style="display: flex; margin-top: 8px; font-size: 12px; color: #404040;">
+                        <div>Powered by Anthropic Claude + Eleven Labs</div>
+                        <div style="margin-left: auto;">Speak with the VC genius behind $WEINER</div>
+                    </div>
+                    <div style="margin-top: 10px; text-align: center;">
+                        <button id="test-voice-button" class="win98-button" style="font-size: 12px;">Test Voice</button>
+                        <div id="api-test-result" style="font-size: 11px; margin-top: 5px; height: 20px;"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
     <!-- Taskbar -->
     <div class="taskbar">
         <div class="start-button" id="start-button">
@@ -552,8 +607,8 @@
         <div class="start-menu-header">Weiner Perkins</div>
         <div class="start-menu-items">
             <div class="start-menu-item" data-window="ai-assistant">
-                <img src="/api/placeholder/24/24" alt="Weiner AI">
-                Weiner AI
+                <img src="/api/placeholder/24/24" alt="Jack Weinerstein">
+                Jack Weinerstein
             </div>
             <div class="start-menu-item" data-window="my-computer">
                 <img src="/api/placeholder/24/24" alt="My Computer">
@@ -581,62 +636,7 @@
             </div>
         </div>
     </div>
-    <!-- AI Assistant Window -->
-    <div class="window active" id="ai-assistant" style="width: 1200px; height: 800px; top: 20px; left: 50px; z-index: 200;">
-        <div class="window-header">
-            <div>Weiner AI Assistant</div>
-            <div class="window-buttons">
-                <div class="window-button minimize">_</div>
-                <div class="window-button maximize">□</div>
-                <div class="window-button close">X</div>
-            </div>
-        </div>
-        <div class="window-content" style="padding: 0; display: flex; height: calc(100% - 21px);">
-            <!-- 3D Model Area -->
-            <div class="model-container" style="width: 550px; background-color: #000080; border-right: 2px solid #404040; position: relative;">
-                <div id="model-canvas-container" style="width: 100%; height: 100%; position: relative;">
-                    <canvas id="model-canvas" style="width: 100%; height: 100%;"></canvas>
-                    <div style="position: absolute; bottom: 15px; left: 0; width: 100%; text-align: center;">
-                        <div style="color: white; font-size: 18px; font-weight: bold; margin-bottom: 10px;">WEINER AI</div>
-                        <button class="win98-button" id="toggle-voice" style="font-size: 14px; padding: 8px 15px;">
-                            <img src="/api/placeholder/16/16" alt="Sound" style="vertical-align: middle; margin-right: 8px;"> Voice: OFF
-                        </button>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- Chat Interface -->
-            <div class="chat-container" style="flex: 1; display: flex; flex-direction: column; height: 100%;">
-                <!-- Chat Messages -->
-                <div class="chat-messages" id="chat-messages" style="flex: 1; overflow-y: auto; padding: 20px; background-color: white; border: 1px inset #808080;">
-                    <div class="message ai-message" style="margin-bottom: 15px;">
-                        <div style="font-weight: bold; color: #000080; font-size: 16px; margin-bottom: 5px;">Weiner AI:</div>
-                        <div style="background-color: #f0f0f0; padding: 15px; border: 1px solid #d0d0d0; border-radius: 5px; font-size: 16px; line-height: 1.4;">
-                            Welcome to Weiner Perkins! I'm your AI investment advisor. How can I help you with your memecoin ventures today?
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- Chat Input -->
-                <div class="chat-input" style="padding: 15px; background-color: #c0c0c0; border-top: 1px solid #808080;">
-                    <div style="display: flex;">
-                        <input type="text" id="user-input" 
-                               style="flex: 1; padding: 8px; font-family: 'MS Sans Serif'; font-size: 14px; border: 1px inset #808080;" 
-                               placeholder="Ask Weiner AI something...">
-                        <button class="win98-button" id="send-button" style="margin-left: 8px; padding: 5px 15px; font-size: 14px;">Send</button>
-                    </div>
-                    <div style="display: flex; margin-top: 8px; font-size: 12px; color: #404040;">
-                        <div>Powered by Anthropic Claude + Eleven Labs</div>
-                        <div style="margin-left: auto;">Type /help for commands</div>
-                    </div>
-                    <div style="margin-top: 10px; text-align: center;">
-                        <button id="test-api-button" class="win98-button" style="font-size: 12px;">Test API Connection</button>
-                        <div id="api-test-result" style="font-size: 11px; margin-top: 5px; height: 20px;"></div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/dat-gui/0.7.7/dat.gui.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/GLTFLoader.js"></script>
@@ -655,6 +655,12 @@
         
         setInterval(updateClock, 1000);
         updateClock();
+
+        // Voice state tracking variable - declared at global scope for accessibility
+        let voiceEnabled = false;
+        
+        // Debug voice state
+        console.log("Initial voice state:", voiceEnabled);
 
         // 3D Model Setup
         let modelScene, modelCamera, modelRenderer, modelControls, modelMixer, modelClock;
@@ -741,7 +747,7 @@
                     document.getElementById('model-canvas-container').innerHTML = `
                         <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); text-align: center;">
                             <img src="/api/placeholder/480/480" alt="3D Model Placeholder" style="border: 3px inset #c0c0c0;">
-                            <div style="margin-top: 15px; color: white; font-size: 18px; font-weight: bold;">WEINER AI</div>
+                            <div style="margin-top: 15px; color: white; font-size: 18px; font-weight: bold;">JACK WEINERSTEIN</div>
                             <button class="win98-button" id="toggle-voice" style="margin-top: 20px; font-size: 14px; padding: 8px 15px;">
                                 <img src="/api/placeholder/16/16" alt="Sound" style="vertical-align: middle; margin-right: 8px;"> Voice: OFF
                             </button>
@@ -750,6 +756,7 @@
                     // Re-attach event listener to new button
                     document.getElementById('toggle-voice').addEventListener('click', function() {
                         voiceEnabled = !voiceEnabled;
+                        console.log("Voice toggled to:", voiceEnabled);
                         this.innerHTML = `<img src="/api/placeholder/16/16" alt="Sound" style="vertical-align: middle; margin-right: 8px;"> Voice: ${voiceEnabled ? 'ON' : 'OFF'}`;
                     });
                 }
@@ -758,50 +765,6 @@
             // Handle window resize
             window.addEventListener('resize', onModelWindowResize);
         }
-
-        // Add this to your index.html script section
-function addTestVoiceButton() {
-  const button = document.createElement('button');
-  button.className = 'win98-button';
-  button.textContent = 'Test Voice API';
-  button.style.marginTop = '10px';
-  button.onclick = async function() {
-    console.log('Testing voice API...');
-    try {
-      const response = await fetch('/api/voice', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ text: 'This is a test of the voice API. If you can hear this, the voice is working correctly.' })
-      });
-      
-      console.log('Voice test response status:', response.status);
-      
-      if (!response.ok) {
-        const errorText = await response.text();
-        console.error('Voice test error:', errorText);
-        alert('Voice test failed: ' + errorText);
-        return;
-      }
-      
-      const audioBlob = await response.blob();
-      console.log('Received audio blob:', audioBlob.type, audioBlob.size);
-      
-      const audioUrl = URL.createObjectURL(audioBlob);
-      const audio = new Audio(audioUrl);
-      audio.play();
-      console.log('Audio playback started');
-    } catch (error) {
-      console.error('Voice test error:', error);
-      alert('Voice test error: ' + error.message);
-    }
-  };
-  
-  // Add to the chat input area
-  document.querySelector('.chat-input').appendChild(button);
-}
-
-// Call this function after page load
-setTimeout(addTestVoiceButton, 1000);
         
         function onModelWindowResize() {
             if (!modelLoaded) return;
@@ -828,16 +791,7 @@ setTimeout(addTestVoiceButton, 1000);
                 modelMixer.update(modelClock.getDelta());
             }
             
-            // Auto-rotate the model slightly - DISABLED
-            /* 
-            if (modelScene && modelScene.children && modelScene.children.length > 0) {
-                for (let i = 0; i < modelScene.children.length; i++) {
-                    if (modelScene.children[i].type === "Group") {
-                        modelScene.children[i].rotation.y += 0.005;
-                    }
-                }
-            }
-            */
+            // Auto-rotate is disabled
             
             // Render scene
             modelRenderer.render(modelScene, modelCamera);
@@ -848,12 +802,16 @@ setTimeout(addTestVoiceButton, 1000);
         const chatMessages = document.getElementById('chat-messages');
         const toggleVoiceButton = document.getElementById('toggle-voice');
         
-        let voiceEnabled = false;
-        
         // Toggle voice function
         toggleVoiceButton.addEventListener('click', function() {
             voiceEnabled = !voiceEnabled;
-            this.innerHTML = `<img src="/api/placeholder/16/16" alt="Sound" style="vertical-align: middle; margin-right: 5px;"> Voice: ${voiceEnabled ? 'ON' : 'OFF'}`;
+            console.log("Voice button clicked. New voice state:", voiceEnabled);
+            this.innerHTML = `<img src="/api/placeholder/16/16" alt="Sound" style="vertical-align: middle; margin-right: 8px;"> Voice: ${voiceEnabled ? 'ON' : 'OFF'}`;
+            
+            // Test voice when enabled
+            if (voiceEnabled) {
+                playVoice("Voice activated. You will now hear Jack Weinerstein's responses.");
+            }
         });
         
         // Function to add a message to the chat
@@ -903,7 +861,7 @@ setTimeout(addTestVoiceButton, 1000);
             senderDiv.style.color = '#000080';
             senderDiv.style.fontSize = '16px';
             senderDiv.style.marginBottom = '5px';
-            senderDiv.textContent = 'Weiner AI:';
+            senderDiv.textContent = 'Jack Weinerstein:';
             
             const indicatorDiv = document.createElement('div');
             indicatorDiv.className = 'typing-indicator';
@@ -930,20 +888,23 @@ setTimeout(addTestVoiceButton, 1000);
             // Showing typing indicator
             showTypingIndicator();
             
+            // Log the voice state before making the API call
+            console.log("Voice state before API call:", voiceEnabled);
+            
             try {
                 console.log("Attempting to call /api/chat endpoint...");
                 
                 // Call to your backend API that handles Anthropic API interaction
                 const response = await fetch('/api/chat', {
-  method: 'POST',
-  headers: {
-    'Content-Type': 'application/json',
-  },
-  body: JSON.stringify({
-    message: userMessage
-    // No context parameter, let the backend use its own system prompt
-  })
-});
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        message: userMessage
+                        // No context parameter, let the backend handle it
+                    })
+                });
                 
                 console.log("API Response Status:", response.status);
                 
@@ -961,10 +922,14 @@ setTimeout(addTestVoiceButton, 1000);
                 // Remove typing indicator
                 removeTypingIndicator();
                 
-                // Play voice using Eleven Labs if enabled
-                if (voiceEnabled) {
-                    console.log("Voice enabled, attempting to play voice...");
-                    playVoice(aiResponseText);
+                // Check voice state and play voice if enabled
+                console.log("Voice state after API call:", voiceEnabled);
+                
+                if (voiceEnabled === true) {
+                    console.log("Voice is enabled, calling playVoice with text:", aiResponseText.substring(0, 30) + "...");
+                    await playVoice(aiResponseText);
+                } else {
+                    console.log("Voice is disabled (value is " + voiceEnabled + "), not playing voice");
                 }
                 
                 return aiResponseText;
@@ -973,132 +938,61 @@ setTimeout(addTestVoiceButton, 1000);
                 removeTypingIndicator();
                 
                 // Fallback response if API call fails
-                return `Sorry, I'm having trouble connecting to my brain right now. As they say in VC, 'Sometimes the servers go down before the funding does.' Error details: ${error.message}`;
+                return `Sorry, I'm having trouble connecting to my brain right now. Error details: ${error.message}`;
             }
         }
-
+        
+        // Function to play voice using Eleven Labs API
         async function playVoice(text) {
-  try {
-    console.log("Frontend: Calling voice API with text:", text.substring(0, 30) + "...");
-    
-    // This calls your voice.js endpoint
-    const response = await fetch('/api/voice', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ text })
-    });
-    
-    if (!response.ok) {
-      throw new Error(`Voice API error: ${response.status}`);
-    }
-    
-    // Get audio data and play it
-    const audioBlob = await response.blob();
-    const audioUrl = URL.createObjectURL(audioBlob);
-    const audio = new Audio(audioUrl);
-    await audio.play();
-  } catch (error) {
-    console.error("Frontend: Error playing voice:", error);
-  }
-}
-    
-    // The response should be an audio blob
-    const audioBlob = await response.blob();
-    console.log("Received audio blob:", audioBlob.type, audioBlob.size);
-    
-    const audioUrl = URL.createObjectURL(audioBlob);
-    
-    // Create and play audio
-    const audio = new Audio(audioUrl);
-    audio.play().catch(e => console.error("Failed to play audio:", e));
-  } catch (error) {
-    console.error('Error playing voice:', error);
-  }
-}
-        // Add test button functionality
-        document.addEventListener('DOMContentLoaded', function() {
-            // This might execute too early, so we also add it when the AI window is opened
-            setupTestButton();
-        });
-        
-        function setupTestButton() {
-            const testButton = document.getElementById('test-api-button');
-            const resultDiv = document.getElementById('api-test-result');
-            
-            if (testButton && resultDiv) {
-                testButton.addEventListener('click', async function() {
-                    resultDiv.textContent = "Testing API connection...";
-                    resultDiv.style.color = "#000";
-                    
-                    try {
-                        // Test the test endpoint
-                        const testResponse = await fetch('/api/test');
-                        let testOk = false;
-                        let testData = null;
-                        
-                        if (testResponse.ok) {
-                            testData = await testResponse.json();
-                            testOk = true;
-                            console.log("Test API response:", testData);
-                        } else {
-                            console.error("Test API failed:", testResponse.status);
-                        }
-                        
-                        // Test the chat endpoint
-                        const chatResponse = await fetch('/api/chat', {
-                            method: 'POST',
-                            headers: {
-                                'Content-Type': 'application/json',
-                            },
-                            body: JSON.stringify({
-                                message: "This is a test message",
-                                context: "Test context"
-                            })
-                        });
-                        
-                        let chatOk = false;
-                        let chatData = null;
-                        
-                        if (chatResponse.ok) {
-                            chatData = await chatResponse.json();
-                            chatOk = true;
-                            console.log("Chat API response:", chatData);
-                        } else {
-                            console.error("Chat API failed:", chatResponse.status);
-                        }
-                        
-                        // Update result
-                        if (testOk && chatOk) {
-                            resultDiv.textContent = "✅ APIs are working correctly!";
-                            resultDiv.style.color = "green";
-                        } else {
-                            resultDiv.textContent = `❌ API test: ${testOk ? 'OK' : 'Failed'}, Chat: ${chatOk ? 'OK' : 'Failed'}`;
-                            resultDiv.style.color = "red";
-                        }
-                    } catch (error) {
-                        console.error("API test error:", error);
-                        resultDiv.textContent = `❌ Error: ${error.message}`;
-                        resultDiv.style.color = "red";
-                    }
+            console.log("Starting playVoice function with text:", text.substring(0, 50) + "...");
+            try {
+                // Call to your backend API that handles Eleven Labs voice synthesis
+                const response = await fetch('/api/voice', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ text })
                 });
+                
+                console.log("Voice API Response Status:", response.status);
+                
+                if (!response.ok) {
+                    const errorText = await response.text();
+                    console.error("Voice API Error:", errorText);
+                    throw new Error(`Failed to get voice response: ${response.status} ${errorText}`);
+                }
+                
+                // The response should be an audio blob
+                const audioBlob = await response.blob();
+                console.log("Received audio blob:", audioBlob.type, audioBlob.size);
+                
+                const audioUrl = URL.createObjectURL(audioBlob);
+                
+                // Create and play audio
+                const audio = new Audio(audioUrl);
+                
+                audio.oncanplaythrough = () => console.log("Audio loaded and ready to play");
+                audio.onplay = () => console.log("Audio playback started");
+                audio.onerror = (e) => console.error("Audio playback error:", e);
+                
+                try {
+                    await audio.play();
+                    console.log("Audio playback initiated successfully");
+                } catch (playError) {
+                    console.error("Failed to play audio:", playError);
+                }
+            } catch (error) {
+                console.error('Error playing voice:', error);
             }
         }
         
-        // Open My Computer by default
-        setTimeout(() => {
-            // Don't open My Computer by default anymore, since we have the AI window
-            // But make sure AI window is open
-            document.getElementById('ai-assistant').classList.add('active');
-            document.getElementById('ai-assistant').style.zIndex = "101";
-            
-            // Focus on the chat input
-            document.getElementById('user-input').focus();
-            
-            // Initialize 3D model
-            initModel();
-        }, 500);
-        
-        // Add a test function to check API routes
+        // Test Voice Button
+        document.getElementById('test-voice-button').addEventListener('click', function() {
+            console.log("Test voice button clicked");
+            playVoice("This is a test of the voice system. If you can hear this, the voice functionality is working correctly.");
+        });
+        // Add test function to check API routes
         async function testApiRoutes() {
             try {
                 const response = await fetch('/api/test');
@@ -1127,19 +1021,37 @@ setTimeout(addTestVoiceButton, 1000);
                     testApiRoutes().then(result => {
                         if (result) {
                             console.log("API routes are working. Environment variables:", result.env);
+                            document.getElementById('api-test-result').textContent = "✓ APIs connected";
+                            document.getElementById('api-test-result').style.color = "green";
                         } else {
                             console.error("API routes test failed. Check Vercel logs.");
+                            document.getElementById('api-test-result').textContent = "✗ API connection failed";
+                            document.getElementById('api-test-result').style.color = "red";
                             
                             // Add a message to the chat to indicate API issues
                             addMessage("System:", "Warning: Unable to connect to AI services. You might see canned responses until this is fixed. Please check browser console for details.", false);
                         }
                     });
                     
-                    // Set up test button
-                    setupTestButton();
                 }, 100);
             });
         });
+        
+        // Open window by default (AI Assistant)
+        setTimeout(() => {
+            document.getElementById('ai-assistant').classList.add('active');
+            document.getElementById('ai-assistant').style.zIndex = "101";
+            
+            // Focus on the chat input
+            document.getElementById('user-input').focus();
+            
+            // Initialize 3D model
+            initModel();
+            
+            // Test API endpoints
+            testApiRoutes();
+        }, 500);
+        
         // Start Menu Toggle
         document.getElementById('start-button').addEventListener('click', function() {
             document.getElementById('start-menu').classList.toggle('active');
@@ -1290,6 +1202,9 @@ setTimeout(addTestVoiceButton, 1000);
         sendButton.addEventListener('click', async function() {
             const message = userInput.value.trim();
             if (message) {
+                console.log("Sending message:", message);
+                console.log("Current voice state:", voiceEnabled);
+                
                 // Add user message
                 addMessage('You:', message, true);
                 
@@ -1298,7 +1213,7 @@ setTimeout(addTestVoiceButton, 1000);
                 
                 // Get and display AI response
                 const aiResponse = await getAIResponse(message);
-                addMessage('Weiner AI:', aiResponse);
+                addMessage('Jack Weinerstein:', aiResponse);
             }
         });
         
@@ -1307,6 +1222,9 @@ setTimeout(addTestVoiceButton, 1000);
             if (e.key === 'Enter') {
                 const message = userInput.value.trim();
                 if (message) {
+                    console.log("Sending message (Enter key):", message);
+                    console.log("Current voice state:", voiceEnabled);
+                    
                     // Add user message
                     addMessage('You:', message, true);
                     
@@ -1315,7 +1233,7 @@ setTimeout(addTestVoiceButton, 1000);
                     
                     // Get and display AI response
                     const aiResponse = await getAIResponse(message);
-                    addMessage('Weiner AI:', aiResponse);
+                    addMessage('Jack Weinerstein:', aiResponse);
                 }
             }
         });
