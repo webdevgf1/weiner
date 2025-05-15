@@ -202,6 +202,8 @@
             background-color: #000080;
             color: white;
             padding: 3px 5px;
+            width: 100% !important;
+            box-sizing: border-box;
             font-weight: bold;
             font-size: 12px;
             display: flex;
@@ -541,7 +543,7 @@
 </div>
 
     <div class="window" id="token">
-    <div class="window-header">
+    <div class="window-header" style="width: 100%;">
         <div>$WEINER Token Info</div>
         <div class="window-buttons">
             <div class="window-button minimize">_</div>
@@ -749,8 +751,9 @@
     </div>
 
     <!-- Updated Roadmap Window -->
-<div class="window" id="roadmap" style="width: 1050px; height: 1080px; left: 50px; top: 20px;">
-    <div class="window-header">
+<!-- Updated Roadmap Window with non-stretched image -->
+<div class="window" id="roadmap" style="width: 1060px; height: 1080px;">
+    <div class="window-header" style="width: 100%;">
         <div>Weiner Perkins Roadmap</div>
         <div class="window-buttons">
             <div class="window-button minimize">_</div>
@@ -760,7 +763,7 @@
     </div>
     <div class="window-content roadmap-content" style="text-align: center; padding: 10px; height: calc(100% - 25px); overflow: auto;">
         <img src="https://cdn.prod.website-files.com/6740d85c4e3daeef29a89470/682668d92b43c6d7c4a93df8_ChatGPT%20Image%20May%2015%2C%202025%2C%2011_21_08%20PM.png" 
-             style="width: 1024px; height: 1024px; max-width: 100%;" alt="Weiner Perkins Roadmap">
+             style="width: 1024px; height: 1024px; object-fit: contain; max-width: 100%;" alt="Weiner Perkins Roadmap">
     </div>
 </div>
 
