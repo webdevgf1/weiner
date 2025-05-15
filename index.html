@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weiner Perkins - Grilling startups since 1972</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            color: #333;
+            background-color: #fff;
+        }
+        
+        .hero-section {
+            background: linear-gradient(135deg, #ffecd2 0%, #ff9d6c 100%);
+        }
+        
+        .sizzle {
+            animation: sizzle 2s infinite;
+        }
+        
+        @keyframes sizzle {
+            0% { transform: rotate(0deg) scale(1); }
+            25% { transform: rotate(1deg) scale(1.02); }
+            50% { transform: rotate(0deg) scale(1); }
+            75% { transform: rotate(-1deg) scale(1.02); }
+            100% { transform: rotate(0deg) scale(1); }
+        }
+        
+        .chat-window {
+            height: 400px;
+            background-color: #f9f9f9;
+            border-radius: 10px;
+            border: 1px solid #e0e0e0;
+            overflow-y: auto;
+        }
+        
+        .character-window {
+            height: 400px;
+            background-color: #222;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hotdog-logo {
+            transition: all 0.3s ease;
+        }
+        
+        .hotdog-logo:hover {
+            transform: rotate(5deg);
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="bg-white shadow-md py-4">
+        <div class="container mx-auto px-6 flex justify-between items-center">
+            <div class="flex items-center">
+                <div class="hotdog-logo mr-4">
+                    <svg width="50" height="50" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M80,50 C80,30 65,15 45,15 C25,15 10,30 10,50 C10,70 25,85 45,85 C65,85 80,70 80,50 Z" fill="#F9D784" />
+                        <path d="M75,50 C75,33 60,20 45,20 C30,20 15,33 15,50 C15,67 30,80 45,80 C60,80 75,67 75,50 Z" fill="#8BC34A" />
+                        <path d="M70,50 C70,36 55,25 45,25 C35,25 20,36 20,50 C20,64 35,75 45,75 C55,75 70,64 70,50 Z" fill="#4CAF50" />
+                        <path d="M65,50 C65,39 50,30 45,30 C40,30 25,39 25,50 C25,61 40,70 45,70 C50,70 65,61 65,50 Z" fill="#009688" />
+                        <rect x="25" y="45" width="40" height="10" fill="#4FC3F7" />
+                        <circle cx="45" cy="50" r="20" fill="#FFEB3B" />
+                        <path d="M55,50 C55,44.5 50.5,40 45,40 C39.5,40 35,44.5 35,50 C35,55.5 39.5,60 45,60 C50.5,60 55,55.5 55,50 Z" fill="#FFC107" />
+                        <rect x="30" y="47" width="30" height="6" fill="#8BC34A" />
+                    </svg>
+                </div>
+                <div>
+                    <h1 class="text-2xl font-bold text-gray-800">Weiner Perkins</h1>
+                    <p class="text-sm text-gray-600 italic">Grilling startups since 1972</p>
+                </div>
+            </div>
+            
+            <div class="hidden md:flex space-x-8">
+                <a href="#portfolio" class="text-gray-800 hover:text-red-500 transition duration-300">Portfolio</a>
+                <a href="#team" class="text-gray-800 hover:text-red-500 transition duration-300">Grill Masters</a>
+                <a href="#sauce" class="text-gray-800 hover:text-red-500 transition duration-300">Secret Sauce</a>
+                <a href="#funds" class="text-gray-800 hover:text-red-500 transition duration-300">Condiment Fund</a>
+                <a href="#quant" class="text-gray-800 hover:text-red-500 transition duration-300">Talk to Our Quant</a>
+            </div>
+            
+            <div class="md:hidden">
+                <button class="text-gray-800">
+                    <i class="fas fa-bars text-2xl"></i>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero-section py-20">
+        <div class="container mx-auto px-6">
+            <div class="flex flex-col md:flex-row items-center">
+                <div class="md:w-1/2 mb-10 md:mb-0">
+                    <h2 class="text-4xl md:text-5xl font-bold mb-6">We Relish Your Potential</h2>
+                    <p class="text-xl mb-8">Turning raw ideas into gourmet businesses with our special funding recipe.</p>
+                    <div class="sizzle inline-block">
+                        <a href="#quant" class="bg-red-600 text-white px-8 py-3 rounded-lg text-lg font-medium hover:bg-red-700 transition duration-300 shadow-lg">Get Grilling</a>
+                    </div>
+                </div>
+                <div class="md:w-1/2 flex justify-center">
+                    <img src="/api/placeholder/500/400" alt="Hot dog with dollar bills" class="rounded-lg shadow-2xl max-w-full h-auto">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Portfolio Companies -->
+    <section id="portfolio" class="py-16 bg-gray-50">
+        <div class="container mx-auto px-6">
+            <h2 class="text-3xl font-bold mb-12 text-center">Our Top-Tier Portfolio</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="bg-white rounded-lg shadow-lg overflow-hidden">
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold mb-2">Bunderful</h3>
+                        <p class="text-gray-600 mb-4">Revolutionary platform for bun innovation, disrupting the bread industry.</p>
+                        <div class="flex items-center text-sm text-gray-500">
+                            <span class="mr-2">Seed Round</span>
+                            <span class="bg-green-200 text-green-800 px-2 py-1 rounded">$2.5M</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="bg-white rounded-lg shadow-lg overflow-hidden">
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold mb-2">KetchApp</h3>
+                        <p class="text-gray-600 mb-4">Mobile payment solution that catches transactions you might miss.</p>
+                        <div class="flex items-center text-sm text-gray-500">
+                            <span class="mr-2">Series A</span>
+                            <span class="bg-blue-200 text-blue-800 px-2 py-1 rounded">$12M</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="bg-white rounded-lg shadow-lg overflow-hidden">
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold mb-2">Mustard Capital</h3>
+                        <p class="text-gray-600 mb-4">Cutting-edge micro-lending platform adding spice to traditional finance.</p>
+                        <div class="flex items-center text-sm text-gray-500">
+                            <span class="mr-2">Series B</span>
+                            <span class="bg-purple-200 text-purple-800 px-2 py-1 rounded">$45M</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="bg-white rounded-lg shadow-lg overflow-hidden">
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold mb-2">FranklyAI</h3>
+                        <p class="text-gray-600 mb-4">Straightforward AI assistant that delivers honest insights for businesses.</p>
+                        <div class="flex items-center text-sm text-gray-500">
+                            <span class="mr-2">Series A</span>
+                            <span class="bg-blue-200 text-blue-800 px-2 py-1 rounded">$18M</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="bg-white rounded-lg shadow-lg overflow-hidden">
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold mb-2">Hot Diggity Data</h3>
+                        <p class="text-gray-600 mb-4">Analytics platform that turns raw data into sizzling business insights.</p>
+                        <div class="flex items-center text-sm text-gray-500">
+                            <span class="mr-2">Seed Round</span>
+                            <span class="bg-green-200 text-green-800 px-2 py-1 rounded">$3.2M</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="bg-white rounded-lg shadow-lg overflow-hidden">
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold mb-2">ByteDog</h3>
+                        <p class="text-gray-600 mb-4">Cloud infrastructure solution that takes a bite out of IT complexity.</p>
+                        <div class="flex items-center text-sm text-gray-500">
+                            <span class="mr-2">Series C</span>
+                            <span class="bg-red-200 text-red-800 px-2 py-1 rounded">$80M</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Meet the Grill Masters -->
+    <section id="team" class="py-16">
+        <div class="container mx-auto px-6">
+            <h2 class="text-3xl font-bold mb-12 text-center">Meet the Grill Masters</h2>
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <div class="text-center">
+                    <div class="mb-4 mx-auto w-40 h-40 rounded-full overflow-hidden">
+                        <img src="/api/placeholder/160/160" alt="Frank W. Perkins" class="w-full h-full object-cover">
+                    </div>
+                    <h3 class="text-xl font-bold">Frank W. Perkins</h3>
+                    <p class="text-gray-600">Founding Partner</p>
+                    <p class="text-sm mt-2">"I never met a startup I couldn't grill."</p>
+                </div>
+                
+                <div class="text-center">
+                    <div class="mb-4 mx-auto w-40 h-40 rounded-full overflow-hidden">
+                        <img src="/api/placeholder/160/160" alt="Patty Relish" class="w-full h-full object-cover">
+                    </div>
+                    <h3 class="text-xl font-bold">Patty Relish</h3>
+                    <p class="text-gray-600">Managing Partner</p>
+                    <p class="text-sm mt-2">"Adding flavor to funding since 2005."</p>
+                </div>
+                
+                <div class="text-center">
+                    <div class="mb-4 mx-auto w-40 h-40 rounded-full overflow-hidden">
+                        <img src="/api/placeholder/160/160" alt="Oscar Meier" class="w-full h-full object-cover">
+                    </div>
+                    <h3 class="text-xl font-bold">Oscar Meier</h3>
+                    <p class="text-gray-600">General Partner</p>
+                    <p class="text-sm mt-2">"Turning up the heat on traditional VC."</p>
+                </div>
+                
+                <div class="text-center">
+                    <div class="mb-4 mx-auto w-40 h-40 rounded-full overflow-hidden">
+                        <img src="/api/placeholder/160/160" alt="Dijon Mustardson" class="w-full h-full object-cover">
+                    </div>
+                    <h3 class="text-xl font-bold">Dijon Mustardson</h3>
+                    <p class="text-gray-600">Quant Analyst</p>
+                    <p class="text-sm mt-2">"The secret ingredient to our investment strategy."</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Our Secret Sauce -->
+    <section id="sauce" class="py-16 bg-gray-50">
+        <div class="container mx-auto px-6">
+            <h2 class="text-3xl font-bold mb-12 text-center">Our Secret Sauce</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="bg-white p-8 rounded-lg shadow-lg">
+                    <div class="text-red-500 text-4xl mb-4">
+                        <i class="fas fa-fire"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-2">High-Heat Investment</h3>
+                    <p class="text-gray-600">We apply just the right amount of pressure to help your startup sizzle and stand out in the market.</p>
+                </div>
+                
+                <div class="bg-white p-8 rounded-lg shadow-lg">
+                    <div class="text-yellow-500 text-4xl mb-4">
+                        <i class="fas fa-lightbulb"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-2">Perfect Flavor Profile</h3>
+                    <p class="text-gray-600">Our balanced approach to mentorship and capital ensures your business develops the right flavor for success.</p>
+                </div>
+                
+                <div class="bg-white p-8 rounded-lg shadow-lg">
+                    <div class="text-green-500 text-4xl mb-4">
+                        <i class="fas fa-seedling"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-2">From Seed to Serving</h3>
+                    <p class="text-gray-600">Whether you're at seed stage or ready to serve millions, our funding approach scales with your growth.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- The Condiment Fund -->
+    <section id="funds" class="py-16">
+        <div class="container mx-auto px-6">
+            <h2 class="text-3xl font-bold mb-12 text-center">The Condiment Fund</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+                <div>
+                    <h3 class="text-2xl font-bold mb-4">Fund Highlights</h3>
+                    <ul class="space-y-4">
+                        <li class="flex items-start">
+                            <span class="text-red-500 mr-2"><i class="fas fa-check-circle mt-1"></i></span>
+                            <span>$500M flagship fund focused on consumer tech and SaaS</span>
+                        </li>
+                        <li class="flex items-start">
+                            <span class="text-red-500 mr-2"><i class="fas fa-check-circle mt-1"></i></span>
+                            <span>$250M special situations fund for saucy opportunities</span>
+                        </li>
+                        <li class="flex items-start">
+                            <span class="text-red-500 mr-2"><i class="fas fa-check-circle mt-1"></i></span>
+                            <span>$100M seed fund for the freshest ideas on the market</span>
+                        </li>
+                        <li class="flex items-start">
+                            <span class="text-red-500 mr-2"><i class="fas fa-check-circle mt-1"></i></span>
+                            <span>Typical investment: $2M - $20M with potential for follow-on</span>
+                        </li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-2xl font-bold mb-4">Investment Criteria</h3>
+                    <ul class="space-y-4">
+                        <li class="flex items-start">
+                            <span class="text-red-500 mr-2"><i class="fas fa-utensils mt-1"></i></span>
+                            <span>Strong founding team with a hearty appetite for success</span>
+                        </li>
+                        <li class="flex items-start">
+                            <span class="text-red-500 mr-2"><i class="fas fa-utensils mt-1"></i></span>
+                            <span>Disruptive technology that adds spice to existing markets</span>
+                        </li>
+                        <li class="flex items-start">
+                            <span class="text-red-500 mr-2"><i class="fas fa-utensils mt-1"></i></span>
+                            <span>Clear path to market with sizzling growth potential</span>
+                        </li>
+                        <li class="flex items-start">
+                            <span class="text-red-500 mr-2"><i class="fas fa-utensils mt-1"></i></span>
+                            <span>Scalable business model with defensible IP and secret sauce</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Talk to Our Quant -->
+    <section id="quant" class="py-16 bg-gray-50">
+        <div class="container mx-auto px-6">
+            <h2 class="text-3xl font-bold mb-12 text-center">Talk to Our Quant</h2>
+            <p class="text-center mb-8 max-w-2xl mx-auto">Get expert investment advice from our proprietary AI-powered financial analyst, Dijon. Ask about market trends, startup valuations, or pitch your idea.</p>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <!-- Chat Window -->
+                <div class="chat-window p-4">
+                    <div class="h-full flex flex-col">
+                        <div class="bg-gray-200 text-gray-800 p-3 rounded-lg mb-4 self-start max-w-3/4">
+                            <p class="text-sm">Hello! I'm Dijon, the Weiner Perkins quant analyst. How can I help you with your investment strategy today?</p>
+                        </div>
+                        
+                        <div class="bg-red-100 text-gray-800 p-3 rounded-lg mb-4 self-end max-w-3/4">
+                            <p class="text-sm">I have a startup idea in the food tech space.</p>
+                        </div>
+                        
+                        <div class="bg-gray-200 text-gray-800 p-3 rounded-lg mb-4 self-start max-w-3/4">
+                            <p class="text-sm">Excellent! Food tech is one of our specialty areas. Could you tell me more about your concept and what problem you're solving?</p>
+                        </div>
+                        
+                        <div class="mt-auto">
+                            <div class="relative">
+                                <input type="text" placeholder="Type your message..." class="w-full p-4 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500">
+                                <button class="absolute right-3 top-3 text-red-500 hover:text-red-700">
+                                    <i class="fas fa-paper-plane text-xl"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Character Window -->
+                <div class="character-window">
+                    <div class="absolute inset-0 bg-gradient-to-b from-transparent to-black opacity-50"></div>
+                    <div class="absolute bottom-4 left-4 z-10">
+                        <h3 class="text-white text-xl font-bold">Dijon Mustardson</h3>
+                        <p class="text-gray-300 text-sm">AI Quant Analyst</p>
+                    </div>
+                    <div class="text-center">
+                        <p class="text-gray-400">3D Character Placeholder</p>
+                        <img src="/api/placeholder/300/300" alt="Dijon Mustardson AI Character" class="max-w-full h-auto opacity-80">
+                    </div>
+                </div>
+            </div>
+            
+            <div class="text-center mt-8">
+                <p class="text-sm text-gray-500">Note: This is a demonstration. In a real implementation, this would connect to an AI service.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Startup Cook-Off -->
+    <section class="py-16">
+        <div class="container mx-auto px-6">
+            <h2 class="text-3xl font-bold mb-12 text-center">Startup Cook-Off</h2>
+            <div class="bg-red-50 rounded-lg p-8">
+                <div class="text-center mb-8">
+                    <h3 class="text-2xl font-bold mb-2">Ready to pitch your startup?</h3>
+                    <p class="text-gray-600 max-w-2xl mx-auto">Join our quarterly pitch competition where the hottest ideas get grilled by our partners. Winners receive seed funding and entry into our accelerator program.</p>
+                </div>
+                
+                <div class="flex flex-col md:flex-row justify-center space-y-4 md:space-y-0 md:space-x-4">
+                    <a href="#" class="bg-red-600 text-white px-6 py-3 rounded-lg text-center hover:bg-red-700 transition duration-300">Apply Now</a>
+                    <a href="#" class="bg-white text-red-600 border border-red-600 px-6 py-3 rounded-lg text-center hover:bg-red-50 transition duration-300">View Past Winners</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white py-12">
+        <div class="container mx-auto px-6">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <div>
+                    <h4 class="text-xl font-bold mb-4">Weiner Perkins</h4>
+                    <p class="text-gray-400">Grilling startups since 1972</p>
+                    <div class="mt-4 flex space-x-4">
+                        <a href="#" class="text-gray-400 hover:text-white"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="text-gray-400 hover:text-white"><i class="fab fa-linkedin"></i></a>
+                        <a href="#" class="text-gray-400 hover:text-white"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+                
+                <div>
+                    <h4 class="text-lg font-bold mb-4">Quick Links</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#portfolio" class="text-gray-400 hover:text-white">Portfolio</a></li>
+                        <li><a href="#team" class="text-gray-400 hover:text-white">Grill Masters</a></li>
+                        <li><a href="#sauce" class="text-gray-400 hover:text-white">Secret Sauce</a></li>
+                        <li><a href="#funds" class="text-gray-400 hover:text-white">Condiment Fund</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4 class="text-lg font-bold mb-4">Resources</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-gray-400 hover:text-white">Investment Thesis</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">Founder's Cookbook</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">Annual BBQ Report</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">Press Grill</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4 class="text-lg font-bold mb-4">Contact Us</h4>
+                    <address class="text-gray-400 not-italic">
+                        1234 Grill Street<br>
+                        San Francisco, CA 94107<br>
+                        <a href="mailto:info@weinerperkins.com" class="hover:text-white">info@weinerperkins.com</a><br>
+                        <a href="tel:+15551234567" class="hover:text-white">(555) 123-4567</a>
+                    </address>
+                </div>
+            </div>
+            
+            <div class="border-t border-gray-700 mt-8 pt-8 text-center text-gray-500 text-sm">
+                <p>&copy; 2025 Weiner Perkins. All rights reserved. This is a satirical website.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // This would be where you'd implement the AI chat functionality
+        // For demonstration purposes only
+        document.addEventListener('DOMContentLoaded', function() {
+            const sizzleElements = document.querySelectorAll('.sizzle');
+            
+            // Apply sizzle animation
+            sizzleElements.forEach(element => {
+                element.classList.add('animate-sizzle');
+            });
+            
+            // Smooth scrolling for anchor links
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    
+                    const targetId = this.getAttribute('href');
+                    const targetElement = document.querySelector(targetId);
+                    
+                    if (targetElement) {
+                        window.scrollTo({
+                            top: targetElement.offsetTop - 100,
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
