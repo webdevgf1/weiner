@@ -554,9 +554,9 @@
                     <canvas id="model-canvas" style="width: 100%; height: 100%;"></canvas>
                     <div style="position: absolute; bottom: 15px; left: 0; width: 100%; text-align: center;">
                         <div style="color: white; font-size: 18px; font-weight: bold; margin-bottom: 10px;">JACK WEINERSTEIN</div>
-                        <button class="win98-button" id="toggle-voice" style="font-size: 14px; padding: 8px 15px;">
-                            <img src="/api/placeholder/16/16" alt="Sound" style="vertical-align: middle; margin-right: 8px;"> Voice: OFF
-                        </button>
+                        <div style="color: white; font-size: 14px; padding: 8px 15px;">
+    <img src="/api/placeholder/16/16" alt="Sound" style="vertical-align: middle; margin-right: 8px;"> Voice: Always ON
+</div>
                     </div>
                 </div>
             </div>
@@ -657,7 +657,7 @@
         updateClock();
 
         // Voice state tracking variable - declared at global scope for accessibility
-        let voiceEnabled = false;
+        let voiceEnabled = true;
         
         // Debug voice state
         console.log("Initial voice state:", voiceEnabled);
@@ -801,18 +801,6 @@
         const sendButton = document.getElementById('send-button');
         const chatMessages = document.getElementById('chat-messages');
         const toggleVoiceButton = document.getElementById('toggle-voice');
-        
-        // Toggle voice function
-        toggleVoiceButton.addEventListener('click', function() {
-            voiceEnabled = !voiceEnabled;
-            console.log("Voice button clicked. New voice state:", voiceEnabled);
-            this.innerHTML = `<img src="/api/placeholder/16/16" alt="Sound" style="vertical-align: middle; margin-right: 8px;"> Voice: ${voiceEnabled ? 'ON' : 'OFF'}`;
-            
-            // Test voice when enabled
-            if (voiceEnabled) {
-                playVoice("Voice activated. You will now hear Jack Weinerstein's responses.");
-            }
-        });
         
         // Function to add a message to the chat
         function addMessage(sender, message, isUser = false) {
