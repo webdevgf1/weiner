@@ -1,6 +1,6 @@
 {
   "dependencies": {
-    "@anthropic-ai/sdk": "^0.10.2",
-    "axios": "^1.6.7"
+    "anthropic": "^0.5.0",
+    "axios": "^1.6.2"
   }
 }
