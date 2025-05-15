@@ -1,6 +1,10 @@
 {
+  "name": "weiner-perkins",
+  "version": "1.0.0",
+  "description": "Weiner Perkins - Memecoin VC Firm",
+  "private": true,
+  "main": "index.html",
   "dependencies": {
-    "anthropic": "^0.5.0",
-    "axios": "^1.6.2"
+    "node-fetch": "^3.3.0"
   }
 }
