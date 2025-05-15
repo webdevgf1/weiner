@@ -1,4 +1,5 @@
-// /api/test.js - Simple test endpoint to check if API routes are working
+// api/test.js - Simple test endpoint to check if API routes are working
+
 export default function handler(req, res) {
   return res.status(200).json({ 
     message: "API routes are working!",
